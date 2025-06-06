@@ -61,9 +61,9 @@ const solutions = [
 
 const SolutionsPage = () => {
   const [activeTab, setActiveTab] = useState('consultance');
-  
+
   return (
-    <div className="pt-16 min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-32 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="bg-green-600 dark:bg-green-800">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl">
@@ -71,13 +71,13 @@ const SolutionsPage = () => {
               Nos solutions pour accélérer votre transition écologique
             </h1>
             <p className="text-green-100 md:text-lg">
-              Découvrez comment MAITSO Madagascar peut vous aider à réduire votre empreinte carbone, 
+              Découvrez comment MAITSO Madagascar peut vous aider à réduire votre empreinte carbone,
               optimiser vos processus et contribuer à un avenir plus durable.
             </p>
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-12">
         {/* Tabs navigation */}
         <div className="flex flex-wrap mb-8 border-b border-gray-200 dark:border-gray-800">
@@ -85,8 +85,8 @@ const SolutionsPage = () => {
             <button
               key={solution.id}
               className={`px-4 py-3 text-sm md:text-base font-medium transition-colors border-b-2 mr-4 mb-2 ${
-                activeTab === solution.id 
-                  ? 'border-green-600 text-green-600 dark:border-green-500 dark:text-green-500' 
+                activeTab === solution.id
+                  ? 'border-green-600 text-green-600 dark:border-green-500 dark:text-green-500'
                   : 'border-transparent text-gray-600 hover:text-green-600 hover:border-green-300 dark:text-gray-400 dark:hover:text-green-400 dark:hover:border-green-800'
               }`}
               onClick={() => setActiveTab(solution.id)}
@@ -95,12 +95,12 @@ const SolutionsPage = () => {
             </button>
           ))}
         </div>
-        
+
         {/* Active solution content */}
         {solutions.map((solution) => (
           <div key={solution.id} id={solution.id}>
             {activeTab === solution.id && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
@@ -116,15 +116,15 @@ const SolutionsPage = () => {
                       {solution.title}
                     </h2>
                   </div>
-                  
+
                   <p className="text-gray-600 dark:text-gray-400 mb-6">
                     {solution.description}
                   </p>
-                  
+
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                     Avantages clés:
                   </h3>
-                  
+
                   <ul className="space-y-2 mb-6">
                     {solution.benefits.map((benefit, index) => (
                       <li key={index} className="flex items-start">
@@ -133,7 +133,7 @@ const SolutionsPage = () => {
                       </li>
                     ))}
                   </ul>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link to="/contact">
                       <Button size="lg">
@@ -145,10 +145,10 @@ const SolutionsPage = () => {
                     </Button>
                   </div>
                 </div>
-                
+
                 <div className="order-first lg:order-last">
-                  <img 
-                    src={solution.image} 
+                  <img
+                    src={solution.image}
                     alt={solution.title}
                     className="w-full h-80 object-cover rounded-lg shadow-md"
                   />

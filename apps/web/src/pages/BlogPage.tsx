@@ -77,16 +77,16 @@ const categories = [
 const BlogPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const filteredPosts = blogPosts
     .filter(post => selectedCategory === 'all' || post.category === selectedCategory)
-    .filter(post => 
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    .filter(post =>
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
   return (
-    <div className="pt-16 min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-32 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="bg-green-600 dark:bg-green-800">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl">
@@ -99,7 +99,7 @@ const BlogPage = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
@@ -119,7 +119,7 @@ const BlogPage = () => {
                   />
                 </div>
               </div>
-              
+
               {/* Categories */}
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
@@ -141,7 +141,7 @@ const BlogPage = () => {
                   ))}
                 </div>
               </div>
-              
+
               {/* Newsletter */}
               <div className="mt-8 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -159,7 +159,7 @@ const BlogPage = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="lg:col-span-3">
             {/* Display search results count */}
             <div className="mb-6">
@@ -169,14 +169,14 @@ const BlogPage = () => {
                 {searchQuery && ` pour "${searchQuery}"`}
               </p>
             </div>
-            
+
             {/* Blog posts grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredPosts.map(post => (
                 <Card key={post.id} className="overflow-hidden hover:shadow-md transition-shadow duration-300" hover>
                   <div className="aspect-w-16 aspect-h-9 relative">
-                    <img 
-                      src={post.image} 
+                    <img
+                      src={post.image}
                       alt={post.title}
                       className="w-full h-48 object-cover"
                     />
@@ -210,7 +210,7 @@ const BlogPage = () => {
                 </Card>
               ))}
             </div>
-            
+
             {filteredPosts.length === 0 && (
               <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
@@ -224,7 +224,7 @@ const BlogPage = () => {
                 </Button>
               </div>
             )}
-            
+
             {filteredPosts.length > 0 && (
               <div className="mt-8 flex justify-center">
                 <Button variant="outline">

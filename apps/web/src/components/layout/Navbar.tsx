@@ -12,15 +12,15 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
   const { isAuthenticated, logout } = useAuth();
   const location = useLocation();
-  
+
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -35,31 +35,32 @@ const Navbar = () => {
   ];
 
   return (
-    <nav 
+    <nav
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled || isOpen 
-          ? 'bg-white shadow-md dark:bg-gray-900' 
+        isScrolled || isOpen
+          ? 'bg-white shadow-md dark:bg-gray-900'
           : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-4 py-3 md:px-6 md:py-4">
         <div className="flex items-center justify-between">
-          <Link 
+          <Link
             to="/"
             className="flex items-center gap-2 text-green-600 dark:text-green-400"
             onClick={closeMenu}
           >
-            <Leaf className="h-8 w-8" />
-            <span className="text-xl font-bold">MAITSO</span>
+			<img src="/logo.png" alt="Logo" className="h-24" />
+            {/* <Leaf className="h-8 w-8" />
+            <span className="text-xl font-bold">MAITSO</span> */}
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="flex items-center space-x-6">
               {navItems.map((item) => (
-                <Link 
-                  key={item.path} 
+                <Link
+                  key={item.path}
                   to={item.path}
                   className={cn(
                     'text-sm font-medium transition-colors',
@@ -72,7 +73,7 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <button
                 onClick={toggleTheme}
@@ -80,7 +81,7 @@ const Navbar = () => {
               >
                 {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
-              
+
               {isAuthenticated ? (
                 <div className="flex items-center space-x-4">
                   <Link to="/dashboard">
@@ -143,17 +144,17 @@ const Navbar = () => {
                 {item.label}
               </Link>
             ))}
-            
+
             {isAuthenticated ? (
               <>
-                <Link 
-                  to="/dashboard" 
+                <Link
+                  to="/dashboard"
                   className="py-2 text-green-600 font-medium dark:text-green-400"
                   onClick={closeMenu}
                 >
                   Dashboard
                 </Link>
-                <button 
+                <button
                   onClick={() => {
                     logout();
                     closeMenu();
@@ -165,15 +166,15 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="py-2 text-gray-700 font-medium dark:text-gray-300"
                   onClick={closeMenu}
                 >
                   Se connecter
                 </Link>
-                <Link 
-                  to="/signup" 
+                <Link
+                  to="/signup"
                   className="py-2 text-green-600 font-medium dark:text-green-400"
                   onClick={closeMenu}
                 >
