@@ -103,27 +103,27 @@ const categories = [
 const GalleryPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  
-  const filteredImages = selectedCategory === 'all' 
-    ? galleryImages 
+
+  const filteredImages = selectedCategory === 'all'
+    ? galleryImages
     : galleryImages.filter(image => image.category === selectedCategory);
-  
+
   const openModal = (id: number) => {
     setSelectedImage(id);
     document.body.style.overflow = 'hidden';
   };
-  
+
   const closeModal = () => {
     setSelectedImage(null);
     document.body.style.overflow = 'auto';
   };
-  
+
   const getSelectedImage = () => {
     return galleryImages.find(image => image.id === selectedImage);
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-32 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="bg-green-600 dark:bg-green-800">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl">
@@ -136,7 +136,7 @@ const GalleryPage = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-12">
         {/* Category filters */}
         <div className="flex flex-wrap gap-2 mb-8">
@@ -154,7 +154,7 @@ const GalleryPage = () => {
             </button>
           ))}
         </div>
-        
+
         {/* Image gallery */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredImages.map((image) => (
@@ -169,8 +169,8 @@ const GalleryPage = () => {
               onClick={() => openModal(image.id)}
             >
               <div className="aspect-w-4 aspect-h-3 relative">
-                <img 
-                  src={image.src} 
+                <img
+                  src={image.src}
                   alt={image.alt}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -181,11 +181,11 @@ const GalleryPage = () => {
             </motion.div>
           ))}
         </div>
-        
+
         {/* Image modal */}
         <AnimatePresence>
           {selectedImage !== null && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -205,13 +205,13 @@ const GalleryPage = () => {
                 >
                   <X className="h-6 w-6" />
                 </button>
-                
-                <img 
-                  src={getSelectedImage()?.src} 
-                  alt={getSelectedImage()?.alt} 
+
+                <img
+                  src={getSelectedImage()?.src}
+                  alt={getSelectedImage()?.alt}
                   className="w-full h-auto max-h-[80vh] object-contain"
                 />
-                
+
                 <div className="bg-white dark:bg-gray-900 p-4">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     {getSelectedImage()?.alt}
@@ -224,7 +224,7 @@ const GalleryPage = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        
+
         {filteredImages.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-600 dark:text-gray-400">

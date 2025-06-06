@@ -82,12 +82,12 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
     <>
       {/* Mobile overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
           onClick={toggleSidebar}
         />
       )}
-      
+
       {/* Sidebar */}
       <aside
         className={cn(
@@ -97,15 +97,16 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
         )}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4">
+          <div className="flex items-center justify-between p">
             <Link to="/" className="flex items-center">
               {!isCollapsed && (
-                <span className="text-xl font-bold text-green-600 dark:text-green-500">MAITSO</span>
+				<img src="/logo.png" alt="Logo" className="h-24" />
+                // <span className="text-xl font-bold text-green-600 dark:text-green-500">MAITSO</span>
               )}
             </Link>
             <div className="flex items-center">
               <button
-                className="lg:flex hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                className="lg:flex hidden text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white p-8"
                 onClick={toggleCollapse}
               >
                 {isCollapsed ? (
@@ -122,7 +123,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
               </button>
             </div>
           </div>
-          
+
           <nav className="flex-1 space-y-1 p-2">
             {menuItems.map((item) => (
               <SidebarLink
@@ -140,7 +141,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
               />
             ))}
           </nav>
-          
+
           <div className="p-2 border-t border-gray-200 dark:border-gray-800">
             <button
               onClick={logout}
@@ -160,7 +161,7 @@ const Sidebar = ({ isOpen, toggleSidebar }: SidebarProps) => {
           </div>
         </div>
       </aside>
-      
+
       {/* Mobile toggle button */}
       <button
         className="fixed bottom-4 left-4 z-40 lg:hidden bg-green-600 text-white p-3 rounded-full shadow-lg"

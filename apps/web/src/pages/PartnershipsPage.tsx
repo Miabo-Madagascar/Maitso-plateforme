@@ -6,15 +6,15 @@ import { Building2, Users, TrendingUp, CheckCircle, AlertCircle } from 'lucide-r
 
 // Custom handshake icon since lucide-react doesn't have one
 const HandshakeIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width="24" 
-    height="24" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
     strokeLinejoin="round"
   >
     <path d="M17 16v-1.2c0-1.68 0-2.52-.327-3.162a3 3 0 0 0-1.311-1.311C14.72 10 13.88 10 12.2 10H7.8c-1.68 0-2.52 0-3.162.327a3 3 0 0 0-1.311 1.311C3 12.28 3 13.12 3 14.8V16"></path>
@@ -54,27 +54,27 @@ const PartnershipsPage = () => {
     company: '',
     message: ''
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!formData.name || !formData.email || !formData.company || !formData.message) {
       setError('Veuillez remplir tous les champs');
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -83,7 +83,7 @@ const PartnershipsPage = () => {
   };
 
   return (
-    <div className="pt-16 min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="pt-32 min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="bg-green-600 dark:bg-green-800">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl">
@@ -96,7 +96,7 @@ const PartnershipsPage = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -110,11 +110,11 @@ const PartnershipsPage = () => {
                   Pourquoi devenir partenaire de MAITSO?
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 md:text-lg">
-                  Rejoindre notre réseau de partenaires vous permet de bénéficier de notre expertise en matière 
+                  Rejoindre notre réseau de partenaires vous permet de bénéficier de notre expertise en matière
                   de développement durable et de transition écologique, tout en contribuant à un avenir plus vert.
                 </p>
               </div>
-              
+
               <div className="space-y-6 mb-8">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex">
@@ -132,7 +132,7 @@ const PartnershipsPage = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   Types de partenariats
@@ -166,7 +166,7 @@ const PartnershipsPage = () => {
               </div>
             </motion.div>
           </div>
-          
+
           <div>
             <Card>
               <CardContent className="p-6">
@@ -180,14 +180,14 @@ const PartnershipsPage = () => {
                         Proposer un partenariat
                       </h2>
                     </div>
-                    
+
                     {error && (
                       <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 p-3 rounded-md flex items-start mb-4">
                         <AlertCircle className="h-5 w-5 mr-2 mt-0.5 flex-shrink-0" />
                         <span>{error}</span>
                       </div>
                     )}
-                    
+
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -203,7 +203,7 @@ const PartnershipsPage = () => {
                           required
                         />
                       </div>
-                      
+
                       <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           Email professionnel
@@ -218,7 +218,7 @@ const PartnershipsPage = () => {
                           required
                         />
                       </div>
-                      
+
                       <div>
                         <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           Entreprise / Organisation
@@ -233,7 +233,7 @@ const PartnershipsPage = () => {
                           required
                         />
                       </div>
-                      
+
                       <div>
                         <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                           Votre proposition
@@ -248,9 +248,9 @@ const PartnershipsPage = () => {
                           required
                         />
                       </div>
-                      
-                      <Button 
-                        type="submit" 
+
+                      <Button
+                        type="submit"
                         className="w-full"
                         isLoading={isSubmitting}
                       >
@@ -267,7 +267,7 @@ const PartnershipsPage = () => {
                     <p className="text-gray-600 dark:text-gray-400 max-w-md mb-6">
                       Nous avons bien reçu votre demande de partenariat. Notre équipe va l'étudier et vous recontactera dans les plus brefs délais.
                     </p>
-                    <Button 
+                    <Button
                       onClick={() => {
                         setIsSubmitted(false);
                         setFormData({ name: '', email: '', company: '', message: '' });
@@ -282,12 +282,12 @@ const PartnershipsPage = () => {
             </Card>
           </div>
         </div>
-        
+
         <div className="mt-16">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
             Ils nous font confiance
           </h2>
-          
+
           <div className="bg-white dark:bg-gray-800 rounded-lg p-8 flex flex-wrap justify-center items-center gap-12">
             {/* Partner logos would go here - using placeholder text for now */}
             <div className="text-center opacity-60 hover:opacity-100 transition-opacity">

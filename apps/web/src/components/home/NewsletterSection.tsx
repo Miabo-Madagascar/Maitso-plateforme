@@ -12,19 +12,19 @@ const NewsletterSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!email) {
       setError('Veuillez entrer votre adresse email');
       return;
     }
-    
+
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       setError('Veuillez entrer une adresse email valide');
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -34,9 +34,9 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="py-12 bg-green-50 dark:bg-green-900/20">
+    <section className="py-12 bg-green-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -52,7 +52,7 @@ const NewsletterSection = () => {
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
                 Abonnez-vous à notre newsletter pour recevoir des conseils, actualités et invitations aux événements sur la transition écologique.
               </p>
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <form onSubmit={handleSubmit} className="flex flex-col items-center sm:flex-row gap-3 max-w-md mx-auto">
                 <div className="flex-1">
                   <input
                     type="email"
@@ -66,7 +66,7 @@ const NewsletterSection = () => {
                   />
                   {error && <p className="text-red-500 text-sm mt-1 text-left">{error}</p>}
                 </div>
-                <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting}>
+                <Button type="submit" isLoading={isSubmitting} disabled={isSubmitting} className="pt-6 pb-6 text-xl">
                   S'abonner
                 </Button>
               </form>
