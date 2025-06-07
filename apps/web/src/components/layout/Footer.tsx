@@ -134,10 +134,10 @@ const Footer = () => {
 							</li>
 							<li>
 								<a
-									href="mailto:maitso.madagascar@gmail.com "
+									href="mailto:maitso.madagascar@outlook.com"
 									className="text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400"
 								>
-									maitso.madagascar@gmail.com
+									maitso.madagascar@outlook.com 
 								</a>
 							</li>
 							<li>
@@ -145,7 +145,7 @@ const Footer = () => {
 									href="tel:+261341234567"
 									className="text-gray-600 hover:text-green-600 dark:text-gray-400 dark:hover:text-green-400"
 								>
-									+261340924165 <br /> +261325085872
+									+261340924165  <br /> +261375085872
 								</a>
 							</li>
 							<li>
