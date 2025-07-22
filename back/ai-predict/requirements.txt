@@ -1,0 +1,2 @@
+Django==5.2.4
+pymongo[snappy,gssapi,srv,tls]
