@@ -29,6 +29,10 @@ Temporary Items
 __pycache__/
 *.py[cod]
 
+# Virtual environments
+venv/
+.venv/
+
 # C extensions
 *.so
 
