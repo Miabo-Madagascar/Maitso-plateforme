@@ -1,4 +1,6 @@
-.vscode
-.ropeproject
+**/.vscode
+**/.ropeproject
 
-*/.bolt
+**/.bolt
+
+**/node_modules

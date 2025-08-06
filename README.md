@@ -3,23 +3,24 @@
 MAITSO est une startup tech & environnementale qui accompagne les entreprises, collectivités et citoyens dans leur **transition écologique** grâce à l’**IA**, l’IoT et les **énergies renouvelables**.
 
 🎯 Objectifs :
-- Réduction de l’empreinte carbone 🌍  
-- Recommandations intelligentes via IA 🤖  
-- Formations Green Tech 💡  
-- Suivi & Analyse des performances environnementales 📊  
+- Réduction de l’empreinte carbone 🌍
+- Recommandations intelligentes via IA 🤖
+- Formations Green Tech 💡
+- Suivi & Analyse des performances environnementales 📊
 
 ---
 
 ## 📁 Structure du projet
 
-maitso/
-│
-├── apps/
-│ └── web/ # Front-end React + Tailwind CSS
-│
-├── packages/ # (Optionnel) Packages partagés
+```
+.
+├── back
+│   ├── ai-predict
+│   └── core-service
+├── front
+├── .gitignore
 └── README.md
-
+```
 
 ---
 
@@ -64,7 +65,7 @@ Par défaut, l’application sera disponible sur :
 
 📂 Navigation par sections :
 
-1 - Mes données 
+1 - Mes données
 
 2 - Recommandations IA
 
@@ -85,7 +86,7 @@ Par défaut, l’application sera disponible sur :
 📫 Contact
 🌐 maitso.mg
 
-✉️ https://linktr.ee/maitso.madagascar 
+✉️ https://linktr.ee/maitso.madagascar
 
 🧪 À venir
 API FastAPI pour IA et collecte de données
