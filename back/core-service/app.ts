@@ -4,10 +4,10 @@ import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./swagger";
 
 import router from "./routes";
-// import Hasher from "./utils/Hasher.js"; // this may become .ts later
 
 const app = express();
 app.use(express.json());
+app.use(router);
 
 const specs = swaggerJsdoc(swaggerOptions);
 
@@ -19,14 +19,6 @@ app.listen(port, () => {
   console.log("Starting server...");
   console.log(`Server listening on port ${port}`);
   console.log(`Swagger UI docs at http://localhost:${port}/api-docs`);
-});
-
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, Express!");
-});
-
-app.get("/test", (req: Request, res: Response) => {
-  res.send("Hello, Test Express!");
 });
 
 /**
