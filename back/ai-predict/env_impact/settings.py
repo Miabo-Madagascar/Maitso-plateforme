@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'drf_spectacular',
+    'rest_framework',
+    'django_filters',
+    'env_data'
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,7 @@ WSGI_APPLICATION = 'env_impact.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 SPECTACULAR_SETTINGS = {
@@ -81,6 +85,7 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'AI and Machine Learning service API',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
 }
 
 
