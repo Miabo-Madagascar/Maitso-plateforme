@@ -1,3 +1,6 @@
 Django==5.2.4
 django-mongodb-backend==5.2.0b1
 drf-spectacular==0.28.0
+django-rest-framework==0.1.0
+uuid==1.30
+django-filter==25.1
