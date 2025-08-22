@@ -5,19 +5,20 @@ import { X } from 'lucide-react';
 import GalleryImageCard from '../components/ui/GalleryImageCard';
 
 const galleryImages = [
-  { id: 1, src: '', alt: 'Panneaux solaires', category: 'projects', description: "Installation de panneaux solaires dans une école rurale" },
-  { id: 2, src: '', alt: 'Formation', category: 'education', description: "Session de formation sur les technologies vertes" },
-  { id: 3, src: '', alt: "Plantation d'arbres", category: 'projects', description: "Projet de reforestation communautaire" },
-  { id: 4, src: '', alt: "Aménagement végétal", category: 'amenagement', description: "Création d'un espace vert intelligent dans un bâtiment d'entreprise" },
-  { id: 5, src: '', alt: "Éolienne", category: 'projects', description: "Installation d'une éolienne pour une communauté isolée" },
-  { id: 6, src: '', alt: "Atelier sensibilisation", category: 'education', description: "Atelier de sensibilisation sur le recyclage" },
-  { id: 7, src: '', alt: "Jardinage urbain", category: 'amenagement', description: "Projet de jardinage urbain dans un quartier d'Antananarivo" },
-  { id: 8, src: '', alt: "Conférence", category: 'events', description: "Conférence sur les innovations durables" },
-  { id: 9, src: '', alt: "Équipe MAITSO", category: 'team', description: "L'équipe MAITSO lors d'une journée de plantation d'arbres" },
-  { id: 10, src: '', alt: "Capteurs IoT", category: 'technology', description: "Installation de capteurs IoT pour la surveillance environnementale" },
-  { id: 11, src: '', alt: "Recyclage", category: 'projects', description: "Centre de tri et de recyclage innovant" },
-  { id: 12, src: '', alt: "Hackathon vert", category: 'events', description: "Hackathon sur les technologies vertes organisé par MAITSO" }
+  { id: 1, src: 'https://i.pinimg.com/1200x/99/ca/4d/99ca4dbc70591a3958079a4012a886cd.jpg', alt: 'Panneaux solaires', category: 'projects', description: "Installation de panneaux solaires dans une école rurale" },
+  { id: 2, src: '/galerie/G4.JPG', alt: 'Formation', category: 'education', description: "Session de formation sur les technologies vertes" },
+  { id: 3, src: 'https://i.pinimg.com/1200x/57/bd/f4/57bdf408cfa8b6147aa91e7866bc3b0b.jpg', alt: "Plantation d'arbres", category: 'projects', description: "Projet de reforestation communautaire" },
+  { id: 4, src: 'https://i.pinimg.com/736x/2f/36/e0/2f36e03dbfcf015273ad6cf7b68a5d0d.jpg', alt: "Aménagement végétal", category: 'amenagement', description: "Création d'un espace vert intelligent dans un bâtiment d'entreprise" },
+  { id: 5, src: 'https://i.pinimg.com/736x/57/01/b7/5701b781cced7183d9c6819341ac850e.jpg', alt: "Éolienne", category: 'projects', description: "Installation d'une éolienne pour une communauté isolée" },
+  { id: 6, src: 'https://i.pinimg.com/1200x/7a/6e/c4/7a6ec421bb75cfd3ffbd23ef6cdbaa0b.jpg', alt: "Atelier sensibilisation", category: 'education', description: "Atelier de sensibilisation sur le recyclage" },
+  { id: 7, src: 'https://i.pinimg.com/736x/eb/33/f6/eb33f67e26bad7835c0dc18895ca1853.jpg', alt: "Jardinage urbain", category: 'amenagement', description: "Projet de jardinage urbain dans un quartier d'Antananarivo" },
+  { id: 8, src: 'https://i.pinimg.com/736x/bf/00/85/bf0085df47e09790a13314338112520a.jpg', alt: "Conférence", category: 'events', description: "Conférence sur les innovations durables" },
+  { id: 9, src: '/galerie/G2.JPG', alt: "Équipe MAITSO", category: 'team', description: "L'équipe MAITSO lors d'une journée de plantation d'arbres" },
+  { id: 10, src: '/galerie/G5.png', alt: "Capteurs IoT", category: 'technology', description: "Installation de capteurs IoT pour la surveillance environnementale" },
+  { id: 11, src: 'https://i.pinimg.com/1200x/1f/fc/1d/1ffc1dbd63ef51faeeef1ede7b860d4d.jpg', alt: "Recyclage", category: 'projects', description: "Centre de tri et de recyclage innovant" },
+  { id: 12, src: 'https://i.pinimg.com/1200x/b5/59/8a/b5598a5fa4dc101a0b4e64d98ea1138f.jpg', alt: "Hackathon vert", category: 'events', description: "Hackathon sur les technologies vertes organisé par MAITSO" }
 ];
+
 
 const categories = [
   { id: 'all', name: 'Tous' },
