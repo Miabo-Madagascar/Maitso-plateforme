@@ -1,4 +1,5 @@
 import HeroSection from '../components/home/HeroSection';
+import TeamSection from '../components/home/TeamSection';
 import MissionSection from '../components/home/MissionSection';
 import OddSection from '../components/home/OddSection';
 import ServiceSection from '../components/home/ServiceSection';
@@ -11,6 +12,7 @@ const HomePage = () => {
       <MissionSection />
       <OddSection />
       <ServiceSection />
+      <TeamSection />
       <NewsletterSection />
     </div>
   );

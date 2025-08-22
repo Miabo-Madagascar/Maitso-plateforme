@@ -66,7 +66,7 @@ const Navbar = () => {
                     'text-sm font-medium transition-colors',
                     location.pathname === item.path
                       ? 'text-green-600 dark:text-green-400'
-                      : 'text-gray-700 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400'
+                      : 'text-black-300 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400'
                   )}
                 >
                   {item.label}
@@ -93,9 +93,6 @@ const Navbar = () => {
                 <div className="flex items-center space-x-4">
                   <Link to="/login">
                     <Button variant="ghost" size="sm">Se connecter</Button>
-                  </Link>
-                  <Link to="/signup">
-                    <Button variant="primary" size="sm">S'inscrire</Button>
                   </Link>
                 </div>
               )}
@@ -173,6 +170,7 @@ const Navbar = () => {
                 >
                   Se connecter
                 </Link>
+
                 <Link
                   to="/signup"
                   className="py-2 text-green-600 font-medium dark:text-green-400"
@@ -180,6 +178,7 @@ const Navbar = () => {
                 >
                   S'inscrire
                 </Link>
+                
               </>
             )}
           </div>

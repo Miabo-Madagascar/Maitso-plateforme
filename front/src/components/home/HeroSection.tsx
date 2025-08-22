@@ -1,90 +1,145 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '../ui/Button';
+import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-const HeroSection = () => {
-  return (
-    <div className="relative bg-gradient-to-br from-green-50 to-emerald-100 dark:from-gray-900 dark:to-gray-800 min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
+interface HeroSectionProps {
+  lightImage?: string;
+  darkImage?: string;
+}
 
-      {/* Effet de fond animé */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 w-[900px] h-[900px] bg-green-400 opacity-20 rounded-full blur-3xl animate-pulse-slow" />
-      </div>
+const content = {
+  badge: "Entreprise engagée pour l'avenir",
+  title: {
+    part1: "Innovons ensemble pour",
+    part2: "un avenir durable",
+  },
+  subtitle: "L'innovation au service de l'écologie, pour Madagascar et le monde.",
+  description:
+    "MAITSO Madagascar accompagne les entreprises, collectivités et jeunes dans leur transition écologique grâce à l'IA, l'IoT et les énergies renouvelables.",
+};
+
+const BackgroundImage: React.FC<{ image: string; onImageLoad: () => void }> = ({ image, onImageLoad }) => (
+  <div className="absolute inset-0 z-0">
+    <img
+      src={image}
+      alt=""
+      aria-hidden="true"
+      loading="eager"
+      onLoad={onImageLoad}
+      onError={(e) => (e.currentTarget.src = '/fallback-image.jpg')}
+      className="w-full h-full object-cover object-center brightness-90 dark:brightness-75"
+    />
+    <div className="absolute inset-0 bg-gray-900/20 dark:bg-gray-900/70"></div>
+  </div>
+);
+
+const HeroSection: React.FC<HeroSectionProps> = ({
+  lightImage = '/f1.jpeg',
+  darkImage = '/f1.jpeg',
+}) => {
+  const [isDarkMode, setIsDarkMode] = useState(
+    typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+  );
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const selectedImage = useMemo(() => (isDarkMode ? darkImage : lightImage), [isDarkMode, lightImage, darkImage]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = selectedImage;
+    document.head.appendChild(link);
+    return () => {
+      document.head.removeChild(link);
+    };
+  }, [selectedImage]);
+
+  const handleImageLoad = () => setIsImageLoading(false);
+
+  return (
+    <div className="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
+      <BackgroundImage image={selectedImage} onImageLoad={handleImageLoad} />
+      {isImageLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+          <div className="w-16 h-16 border-4 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
 
       <div className="container mx-auto px-4 py-12 md:py-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-          {/* Texte à gauche */}
+        <div className="grid grid-cols-1 gap-8 items-center text-left">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-center lg:text-left"
+            initial={{ opacity: 0, scale: prefersReducedMotion ? 1 : 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: 0.15, type: 'spring' }}
+            className="inline-flex items-center gap-2 px-4 py-1 mb-2 rounded-full bg-gradient-to-r from-emerald-400 to-amber-400 text-white text-sm font-semibold shadow-md text-shadow-md max-w-sm"
           >
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              whileHover={{ scale: 1.02 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight transition-transform"
-            >
-              <span className="text-green-600 dark:text-green-400">Innovons</span> ensemble pour
-              <br />
-              <span className="text-green-600 dark:text-green-400">un avenir durable</span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
-            >
-              MAITSO Madagascar accompagne les entreprises, collectivités et jeunes dans leur
-              transition écologique grâce à l'IA, l'IoT et les énergies renouvelables.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
-            >
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Link to="/contact">
-                  <Button size="lg">Nous contacter</Button>
-                </Link>
-              </motion.div>
-
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Link to="/solutions">
-                  <Button variant="outline" size="lg">Découvrir nos solutions</Button>
-                </Link>
-              </motion.div>
-            </motion.div>
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            {content.badge}
           </motion.div>
 
-          {/* Image Hero avec effet 3D futuriste */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
+          <motion.h1
+            initial={{ opacity: 0, x: prefersReducedMotion ? 0 : -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            whileHover={{ scale: 1.02 }}
-            className="hidden lg:block relative"
+            transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 text-gray-900 dark:text-gray-100 leading-tight text-shadow-md"
           >
-            <img
-              src="/hero-image.jpeg"
-              alt="Énergie renouvelable et technologie"
-              className="w-full max-w-lg h-auto rounded-2xl shadow-xl border border-green-300 dark:border-green-500 transition-all duration-500"
-              style={{ objectFit: 'cover', imageRendering: 'auto' }}
-            />
-          </motion.div>
+            <span className="text-emerald-400">{content.title.part1}</span><br />
+            <span className="text-emerald-400">{content.title.part2}</span>
+          </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: 0.35 }}
+            className="italic text-base md:text-lg text-teal-500 dark:text-teal-200 mb-2 font-medium text-shadow-md"
+          >
+            {content.subtitle}
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: 0.4 }}
+            className="text-lg md:text-xl text-white dark:text-gray-400 mb-4 max-w-2xl text-shadow-md"
+          >
+            {content.description}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.8, delay: 0.55 }}
+            className="flex flex-col sm:flex-row gap-4 items-start justify-start mb-4"
+          >
+            <a
+              href="/contact"
+              aria-label="Contacter notre équipe pour plus d'informations"
+              onClick={() => window.gtag?.('event', 'click', { event_category: 'HeroSection', event_label: 'Contact' })}
+              className="px-8 py-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-white font-bold shadow-md hover:from-emerald-500 hover:to-teal-500 transition-all duration-300 text-lg text-shadow-md"
+            >
+              Nous contacter
+            </a>
+            <a
+              href="/solutions"
+              aria-label="Découvrir nos solutions écologiques"
+              onClick={() => window.gtag?.('event', 'click', { event_category: 'HeroSection', event_label: 'Solutions' })}
+              className="px-8 py-3 rounded-full bg-white/05 dark:bg-slate-900/05 border-2 border-teal-400/50 text-emerald-400 dark:text-teal-300 font-bold hover:bg-emerald-400/10 transition-all duration-300 text-lg text-shadow-md"
+            >
+              Découvrir nos solutions
+            </a>
+          </motion.div>
         </div>
       </div>
-
-      {/* Dégradé en bas */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent dark:from-gray-950 dark:to-transparent z-10" />
     </div>
   );
 };
