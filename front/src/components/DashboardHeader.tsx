@@ -24,12 +24,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { ScrollArea } from "../ui/scroll-area";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+} from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { ScrollArea } from "./ui/scroll-area";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 // Importation des utilitaires de date
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale/fr";
