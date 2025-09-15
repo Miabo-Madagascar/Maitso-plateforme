@@ -1,6 +1,7 @@
-import { Schema, model, Document } from 'mongoose';
+import mongoose, { Schema, Document, ObjectId } from 'mongoose';
 
-interface IUserInformation extends Document {
+export interface IUserInformation extends Document {
+  _id: ObjectId;
   first_name: string;
   last_name: string;
   user_type: string;
@@ -28,6 +29,6 @@ const userInformationSchema = new Schema<IUserInformation>({
     required: true,
     match: /^\+?[0-9]{8,15}$/,
   },
-});
+}, { collection : "UsersInformations", versionKey: false});
 
-export const UserInformation = model<IUserInformation>('UserInformation', userInformationSchema);
+export const UserInformation = mongoose.model<IUserInformation>('UsersInformations', userInformationSchema);

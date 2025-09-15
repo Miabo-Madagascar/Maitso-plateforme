@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 nodemon.json
 swagger.ts
+swagger-autogen.ts
+swagger-output.json

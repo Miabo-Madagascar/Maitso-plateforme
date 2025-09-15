@@ -4,8 +4,9 @@
   "description": "Core service API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch . --ext ts --exec ts-node app.ts"
+    "test": "echo \"Error: no test specified\" && exit 1",    
+    "build-swagger": "ts-node swagger-autogen.ts",
+    "dev": "npm run build-swagger && nodemon --watch . --ext ts --exec ts-node app.ts"
   },
   "author": "MDG_Destiny",
   "license": "ISC",
@@ -28,6 +29,7 @@
     "@types/node": "^24.1.0",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "swagger-autogen": "^2.23.7",
     "swagger-jsdoc": "^6.2.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

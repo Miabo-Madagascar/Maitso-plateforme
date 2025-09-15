@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from "mongoose";
+import mongoose, { Schema, model, Document, Types } from "mongoose";
 
 interface IUserCredentials extends Document {
   userID: Types.ObjectId;
@@ -16,6 +16,6 @@ const userCredentialsSchema = new Schema<IUserCredentials>({
     type: String,
     required: true,
   },
-});
+}, { collection : "UsersCredentials", versionKey: false });
 
-export const UserCredentials = model<IUserCredentials>("UserCredentials", userCredentialsSchema);
+export const UserCredentials = mongoose.model<IUserCredentials>("UsersCredentials", userCredentialsSchema);
