@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent } from '../components/ui/Card';
+import { Card, CardContent } from './../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Search, Calendar, User, ArrowRight } from 'lucide-react';
 import { formatDate } from '../lib/utils';
