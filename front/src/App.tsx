@@ -10,14 +10,15 @@ import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Login from "./Login";
+import Dashboard from "./Dashboard";
 import SolutionsPage from "./pages/SolutionsPage";
 import ContactPage from "./pages/ContactPage";
 import GalleryPage from "./pages/GalleryPage";
 import BlogPage from "./pages/BlogPage";
 import PartnershipsPage from "./pages/PartnershipsPage";
 import ForgotPassword from "./pages/ForgotPassword";
+
 
 const AppContent = () => {
   const location = useLocation();
