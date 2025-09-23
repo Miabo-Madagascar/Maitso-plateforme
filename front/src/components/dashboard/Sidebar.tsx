@@ -1,5 +1,5 @@
 import { BarChart3, Users, Zap, HelpCircle, Settings, Library } from "lucide-react";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 
 interface SidebarProps {
   activeItem: string;
