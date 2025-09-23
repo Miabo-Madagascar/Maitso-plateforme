@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/Card';
+import { Button } from './../components/ui/Button';
+import { Card, CardContent } from './../components/ui/Card';
 import { Building2, Users, TrendingUp, CheckCircle, AlertCircle } from 'lucide-react';
 
 // Custom handshake icon since lucide-react doesn't have one

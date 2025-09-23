@@ -1,347 +1,28 @@
-import { useState, useMemo, useEffect } from "react";
-// Icônes
-import { Bell, Calendar, Activity, TrendingUp, TrendingDown, Minus,   Thermometer, CloudSun, AirVent, Factory, 
-  FlameKindling, Leaf, Settings, ShieldCheck, Battery, Wrench, Wifi, Signal, MapPin, Gauge} from "lucide-react";
-// Graphiques (Recharts)
-import { 
-  XAxis, YAxis, ResponsiveContainer, Area, AreaChart, Tooltip, 
-  LineChart, Line, CartesianGrid, BarChart, Legend 
-} from "recharts";
-
 // Composants internes
 import { GlassMetricCard } from "./GlassMetricCard";
 import { GlassAlertItem } from "./GlassAlertItem";
 import { DashboardHeader } from "./DashboardHeader";
 
-// ———————————————— Types & Mock Data ————————————————
+// Types & données
+import type { Period, SensorKey, ActivityDataItem, TooltipProps } from "../src/data/types";
+import { mockData, defaultThresholds, mockSensors, } from "../data/mockData";
+import { sensorMeta } from "../data/sensorConfig";
+import { classNames, useRecommendations, Chip, SectionTitle } from "../data/utils";
 
-type Period = "day" | "week" | "month";
-type SensorKey = "temperature" | "humidity" | "co2" | "noise" | "pm25" | "pm10" | "no2" | "o3";
-type SensorPoint = { t: string; v: number };
-type ActivityDataItem = {
-  month: string;
-  value: number;
-  growth: number;
-};
+// Composants manquants à créer
+import { CalendarHeatmap } from "./CalendarHeatmap";
+import { ChartTooltip } from "./ChartTooltip";
 
-type TooltipProps = {
-  active?: boolean;
-  payload?: { value: number; payload: ActivityDataItem }[];
-  label?: string;
-};
+import { Activity, BarChart, Battery, Bell, Calendar, Gauge, Leaf, MapPin, Minus, Settings, 
+ShieldCheck, Signal, TrendingDown, TrendingUp, Wifi, Wrench, X, MessageCircle, 
+SunIcon} from "lucide-react";
+import { AreaChart, LineChart, Area, CartesianGrid, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-// Génère des données mock lissées
-function genSeries(base: number, spread: number, len = 30, decimals = 0): SensorPoint[] {
-  const out: SensorPoint[] = [];
-  let value = base;
-  for (let i = 0; i < len; i++) {
-    value += (Math.random() - 0.5) * spread;
-    const day = new Date();
-    day.setDate(day.getDate() - (len - 1 - i));
-    out.push({ t: day.toISOString().slice(0, 10), v: parseFloat(value.toFixed(decimals)) });
-  }
-  return out;
-}
-
-const mockData: Record<SensorKey, SensorPoint[]> = {
-  temperature: genSeries(22, 2.8, 30, 1),
-  humidity: genSeries(55, 8, 30, 0),
-  co2: genSeries(520, 120, 30, 0),
-  noise: genSeries(42, 8, 30, 0),
-  pm25: genSeries(18, 12, 30, 0),
-  pm10: genSeries(26, 15, 30, 0),
-  no2: genSeries(28, 10, 30, 0),
-  o3: genSeries(35, 12, 30, 0)
-};
-
-// Seuils (modifiable via UI)
-export type Thresholds = {
-  temperature: { min: number; max: number };
-  humidity: { min: number; max: number };
-  co2: { warn: number; danger: number };
-  noise: { warn: number; danger: number };
-  pm25: { who: number; local: number };
-  pm10: { who: number; local: number };
-  no2: { who: number; local: number };
-  o3: { who: number; local: number };
-};
-
-const defaultThresholds: Thresholds = {
-  temperature: { min: 20, max: 26 },
-  humidity: { min: 35, max: 60 },
-  co2: { warn: 800, danger: 1200 },
-  noise: { warn: 55, danger: 70 },
-  pm25: { who: 15, local: 35 },
-  pm10: { who: 45, local: 50 },
-  no2: { who: 25, local: 40 },
-  o3: { who: 60, local: 100 }
-};
-
-// Palette par capteur
-const sensorMeta: Record<
-  SensorKey,
-  { label: string; unit: string; color: string; gradientFrom: string; gradientTo: string; icon: React.ReactNode }
-> = {
-  temperature: {
-    label: "Température",
-    unit: "°C",
-    color: "#60a5fa",
-    gradientFrom: "from-blue-400",
-    gradientTo: "to-cyan-400",
-    icon: <Thermometer className="w-4 h-4 text-white" />
-  },
-  humidity: {
-    label: "Humidité",
-    unit: "%",
-    color: "#22d3ee",
-    gradientFrom: "from-cyan-400",
-    gradientTo: "to-sky-500",
-    icon: <CloudSun className="w-4 h-4 text-white" />
-  },
-  co2: {
-    label: "CO₂",
-    unit: "ppm",
-    color: "#34d399",
-    gradientFrom: "from-emerald-500",
-    gradientTo: "to-green-500",
-    icon: <AirVent className="w-4 h-4 text-white" />
-  },
-  noise: {
-    label: "Bruit",
-    unit: "dB",
-    color: "#f59e0b",
-    gradientFrom: "from-amber-400",
-    gradientTo: "to-orange-500",
-    icon: <Activity className="w-4 h-4 text-white" />
-  },
-  pm25: {
-    label: "PM2.5",
-    unit: "µg/m³",
-    color: "#64748b",
-    gradientFrom: "from-slate-400",
-    gradientTo: "to-slate-600",
-    icon: <Factory className="w-4 h-4 text-white" />
-  },
-  pm10: {
-    label: "PM10",
-    unit: "µg/m³",
-    color: "#94a3b8",
-    gradientFrom: "from-slate-300",
-    gradientTo: "to-gray-500",
-    icon: <Factory className="w-4 h-4 text-white" />
-  },
-  no2: {
-    label: "NO₂",
-    unit: "ppb",
-    color: "#ef4444",
-    gradientFrom: "from-rose-500",
-    gradientTo: "to-orange-500",
-    icon: <FlameKindling className="w-4 h-4 text-white" />
-  },
-  o3: {
-    label: "O₃",
-    unit: "ppb",
-    color: "#0ea5e9",
-    gradientFrom: "from-sky-500",
-    gradientTo: "to-blue-600",
-    icon: <Leaf className="w-4 h-4 text-white" />
-  }
-};
-
-// ———————————————— Utilitaires ————————————————
-
-function classNames(...c: (string | false | null | undefined)[]) {
-  return c.filter(Boolean).join(" ");
-}
-
-// Simple export CSV
-
-// ———————————————— Mini Composants ————————————————
+import { useEffect, useMemo, useState } from "react";
 
 const Glass = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <div
-    className={classNames(
-      "rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl",
-      className
-    )}
-  >
+  <div className={classNames("rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl", className)}>
     {children}
-  </div>
-);
-
-const Chip = ({ children }: { children: React.ReactNode }) => (
-  <span className="px-2 py-0.5 text-xs rounded-full bg-white/60 border border-white/40">
-    {children}
-  </span>
-);
-
-
-const SectionTitle = ({ icon, title, right }: { icon?: React.ReactNode; title: string; right?: React.ReactNode }) => (
-  <div className="flex items-center justify-between mb-3">
-    <div className="flex items-center gap-2">
-      {icon}
-      <h3 className="text-base sm:text-lg font-semibold text-gray-900">{title}</h3>
-    </div>
-    {right}
-  </div>
-);
-
-// ———————————————— Calendrier Heatmap ————————————————
-
-function CalendarHeatmap({ values }: { values: { date: string; aqi: number }[] }) {
-  const today = new Date();
-  const start = new Date();
-  start.setDate(today.getDate() - 41);
-  const days: { date: string; aqi?: number }[] = [];
-  for (let i = 0; i < 42; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    days.push({ date: d.toISOString().slice(0, 10) });
-  }
-
-  const aqiMap = Object.fromEntries(values.map((v) => [v.date, v.aqi] as const));
-
-  function colorFor(aqi?: number) {
-    if (aqi == null) return "bg-gray-200";
-    if (aqi < 25) return "bg-emerald-400";
-    if (aqi < 50) return "bg-lime-500";
-    if (aqi < 75) return "bg-amber-400";
-    if (aqi < 100) return "bg-orange-500";
-    return "bg-rose-500";
-  }
-
-  return (
-    <div>
-      <div className="grid grid-cols-7 gap-1">
-        {days.map((d, i) => (
-          <div key={i} className={classNames("h-6 rounded-md", colorFor(aqiMap[d.date]))} title={`${d.date} – AQI: ${aqiMap[d.date] ?? "n/a"}`} />
-        ))}
-      </div>
-      <div className="flex justify-end gap-2 mt-2 text-xs text-gray-500">
-        <span>Léger</span>
-        <div className="w-4 h-3 rounded bg-emerald-400" />
-        <div className="w-4 h-3 rounded bg-lime-500" />
-        <div className="w-4 h-3 rounded bg-amber-400" />
-        <div className="w-4 h-3 rounded bg-orange-500" />
-        <div className="w-4 h-3 rounded bg-rose-500" />
-        <span>Élevé</span>
-      </div>
-    </div>
-  );
-}
-
-// ———————————————— Recommandations dynamiques ————————————————
-
-function useRecommendations(latest: Record<SensorKey, number>, th: Thresholds) {
-  return useMemo(() => {
-    const recs: { title: string; detail: string; severity: "info" | "warn" | "danger"; icon: React.ReactNode }[] = [];
-
-    if (latest.co2 > th.co2.danger) {
-      recs.push({
-        title: "CO₂ très élevé",
-        detail: "Augmentez l'aération immédiatement (ouvrir fenêtres, activer VMC).",
-        severity: "danger",
-        icon: <AirVent className="w-4 h-4" />
-      });
-    } else if (latest.co2 > th.co2.warn) {
-      recs.push({
-        title: "CO₂ au-dessus du seuil",
-        detail: "Planifiez des cycles d'aération réguliers et réduisez l'occupation de la pièce.",
-        severity: "warn",
-        icon: <AirVent className="w-4 h-4" />
-      });
-    }
-
-    if (latest.pm25 > th.pm25.local) {
-      recs.push({
-        title: "Particules fines PM2.5 élevées",
-        detail: "Activez la filtration HEPA, limitez l'ouverture vers l'extérieur aux heures de trafic.",
-        severity: "danger",
-        icon: <Factory className="w-4 h-4" />
-      });
-    }
-
-    if (latest.temperature < th.temperature.min) {
-      recs.push({
-        title: "Température basse",
-        detail: "Vérifiez le chauffage; cible 20–22°C pour le confort.",
-        severity: "info",
-        icon: <Thermometer className="w-4 h-4" />
-      });
-    }
-
-    if (latest.humidity > th.humidity.max) {
-      recs.push({
-        title: "Humidité élevée",
-        detail: "Augmentez la ventilation ou utilisez un déshumidificateur pour rester <60%.",
-        severity: "warn",
-        icon: <CloudSun className="w-4 h-4" />
-      });
-    }
-
-    if (latest.noise > th.noise.danger) {
-      recs.push({
-        title: "Bruit excessif",
-        detail: "Identifiez la source; envisagez des panneaux acoustiques.",
-        severity: "danger",
-        icon: <Activity className="w-4 h-4" />
-      });
-    }
-
-    if (recs.length === 0) {
-      recs.push({ title: "Tout est sous contrôle", detail: "Les mesures sont dans les plages cibles.", severity: "info", icon: <ShieldCheck className="w-4 h-4" /> });
-    }
-
-    return recs;
-  }, [latest, th]);
-}
-
-// ———————————————— Capteurs: fonctions & statut ————————————————
-
-type SensorStatus = {
-  id: string;
-  name: string;
-  online: boolean;
-  battery: number;
-  firmware: string;
-  lastSeen: string;
-  calibrated: boolean;
-  rssi: number;
-};
-
-const mockSensors: SensorStatus[] = [
-  { id: "S-01", name: "Hall - Nord", online: true, battery: 87, firmware: "1.4.2", lastSeen: "il y a 2 min", calibrated: true, rssi: 82 },
-  { id: "S-02", name: "Atelier - Est", online: true, battery: 64, firmware: "1.4.2", lastSeen: "il y a 5 min", calibrated: false, rssi: 61 },
-  { id: "S-03", name: "Bureau - Ouest", online: false, battery: 0, firmware: "1.3.9", lastSeen: "il y a 2 h", calibrated: true, rssi: 0 },
-   { id: "001", name: "Capteur Température", online: true, rssi: -42, battery: 87, firmware: "v1.2", calibrated: true, lastSeen: "10:30" },
-  { id: "002", name: "Capteur Humidité", online: false, rssi: -68, battery: 55, firmware: "v1.1", calibrated: false, lastSeen: "09:45" },
-  { id: "003", name: "Capteur Pression", online: true, rssi: -50, battery: 92, firmware: "v1.3", calibrated: true, lastSeen: "11:05" },
-];
-
-// ———————————————— Tooltip Recharts ————————————————
-
-interface PayloadItem {
-  color: string;
-  name: string;
-  value: number | string; // Ajustez le type selon vos besoins
-}
-
-interface ChartTooltipProps {
-  label: string;
-  payload: PayloadItem[]; // Un tableau d'objets PayloadItem
-}
-
-const ChartTooltip: React.FC<ChartTooltipProps> = ({ label, payload }) => (
-  <div className="px-3 py-2 rounded-xl bg-white/90 border border-white/50 shadow-md text-xs">
-    <div className="font-medium text-gray-900">{label}</div>
-    {payload?.map((p, i) => (
-      <div key={i} className="flex items-center gap-2 text-gray-700">
-        <span className="inline-block w-2 h-2 rounded-full" style={{ background: p.color }} />
-        <span>
-          {p.name}: <b>{p.value}</b>
-        </span>
-      </div>
-    ))}
   </div>
 );
 
@@ -350,7 +31,8 @@ export function GlassDashboard() {
   const [selectedMetric, setSelectedMetric] = useState<SensorKey>("temperature");
   const [isLoading] = useState(false);
   const [dark] = useState<boolean>(false);
-  const [thresholds, setThresholds] = useState<Thresholds>(defaultThresholds);
+  const [thresholds, setThresholds] = useState(defaultThresholds);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
@@ -372,6 +54,10 @@ export function GlassDashboard() {
   const energyData = [
     { value: 100 }, { value: 120 }, { value: 110 }, { value: 130 }, { value: 125 },
     { value: 140 }, { value: 135 }, { value: 150 }, { value: 145 }
+  ];
+  const luminosityData = [
+    { value: 300 }, { value: 320 }, { value: 310 }, { value: 330 }, { value: 340 },
+    { value: 350 }, { value: 360 }, { value: 370 }, { value: 380 }
   ];
 
   // Activité mensuelle
@@ -468,8 +154,8 @@ export function GlassDashboard() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(120,255,198,0.1),transparent_50%)]"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 p-3 space-y-4">
+      {/* Content scrollable */}
+      <div className="relative z-10 p-3 space-y-4 overflow-y-auto max-h-screen scrollbar-hide">
         <DashboardHeader />
 
         {/* Capteurs */}
@@ -497,10 +183,95 @@ export function GlassDashboard() {
           <GlassMetricCard title="Pression" value="1012 hPa" trend="neutral"
             data={co2Data} color="#f43f5e" gradient="from-pink-500 to-rose-500"
             icon={<Calendar className="w-3 h-3 text-white" />} small />
-          
-          <GlassMetricCard title="Pression" value="1012 hPa" trend="neutral"
-            data={co2Data} color="#f43f5e" gradient="from-pink-500 to-rose-500"
-            icon={<Calendar className="w-3 h-3 text-white" />} small />
+
+          {/* Nouveau capteur Luminosité */}
+          <GlassMetricCard title="Luminosité" value="350 lx" trend="up" trendValue="+15%"
+            data={luminosityData} color="#fde047" gradient="from-yellow-400 to-amber-400"
+            icon={<SunIcon className="w-3 h-3 text-white" />} small />
+
+          {/* Bouton flottant pour ouvrir/fermer l'assistant chat */}
+          <button
+            onClick={() => setChatOpen(!chatOpen)}
+            aria-label="Ouvrir l'assistant chat"
+            className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg text-white hover:brightness-110 transition"
+          >
+            {chatOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+          </button>
+
+          {/* Fenêtre assistant chat */}
+          {chatOpen && (
+            <div className="fixed bottom-20 right-6 z-40 w-80 h-96 rounded-2xl border border-indigo-300 bg-gradient-to-br from-indigo-50 via-purple-50 to-white/80 backdrop-blur-xl shadow-2xl flex flex-col animate-fadeIn">
+              {/* Header coloré */}
+              <div className="flex items-center justify-between p-4 border-b border-indigo-200 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-t-2xl">
+                <h4 className="text-indigo-700 font-bold text-base tracking-wide flex items-center gap-2">
+                  <MessageCircle className="w-5 h-5 text-indigo-500" /> Assistant Chat
+                </h4>
+                <button
+                  onClick={() => setChatOpen(false)}
+                  aria-label="Fermer le chat"
+                  className="text-indigo-500 hover:text-indigo-700 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              {/* Zone de messages stylée */}
+              <div className="flex-1 p-4 overflow-y-auto text-gray-800 space-y-2 custom-scrollbar">
+                {/* Assistant message */}
+                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                  Bonjour 👋 ! Je suis votre assistant. Comment puis-je aider ?
+                </div>
+                {/* User message */}
+                <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
+                  Je veux voir les alertes récentes.
+                </div>
+                {/* Assistant message */}
+                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                  Voici les 6 alertes les plus récentes affichées à gauche du dashboard.
+                </div>
+                {/* User message */}
+                <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
+                  Merci ! Et comment exporter les données ?
+                </div>
+                {/* Assistant message */}
+                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                  Cliquez sur l’icône PDF dans la section documentation pour exporter vos données.
+                </div>
+              </div>
+              {/* Zone de saisie avec bouton d'envoi */}
+              <div className="p-4 border-t border-indigo-200 bg-white/60 rounded-b-2xl flex items-center gap-2">
+                <input
+                  type="text"
+                  placeholder="Tapez votre message..."
+                  className="flex-1 rounded-lg border border-indigo-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/90 shadow"
+                />
+                <button
+                  aria-label="Envoyer"
+                  className="p-2 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md hover:scale-105 transition"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 20l16-8-16-8v6l12 2-12 2v6z" />
+                  </svg>
+                </button>
+              </div>
+              {/* Animation & scrollbar styles */}
+              <style>{`
+                .animate-fadeIn {
+                  animation: fadeIn 0.3s ease-out;
+                }
+                @keyframes fadeIn {
+                  from { opacity: 0; transform: translateY(10px); }
+                  to { opacity: 1; transform: translateY(0); }
+                }
+                .custom-scrollbar::-webkit-scrollbar {
+                  width: 6px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                  background: rgba(99, 102, 241, 0.5);
+                  border-radius: 10px;
+                }
+              `}</style>
+            </div>
+          )}
          </div>
 
        {/* --- LIGNE 1 : Activité mensuelle | Détail température --- */}

@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function ForgotPassword() {
   const navigate = useNavigate();
-  
-  // États du formulaire et de l'interface
   const [email, setEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -19,7 +17,6 @@ export default function ForgotPassword() {
     try {
       // Simulation API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      
       if (email) {
         setMessage("If this email is registered, a reset link has been sent.");
       } else {
