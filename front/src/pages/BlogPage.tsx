@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent } from './../components/ui/card';
+import { Card, CardContent } from './../components/ui/Card';
 import { Button } from '../components/ui/button';
 import { Search, Calendar, User, ArrowRight } from 'lucide-react';
 import { formatDate } from '../lib/utils';
@@ -173,7 +173,7 @@ const BlogPage = () => {
             {/* Blog posts grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredPosts.map(post => (
-                <Card key={post.id} className="overflow-hidden hover:shadow-md transition-shadow duration-300" hover>
+                <Card key={post.id} className="overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <div className="aspect-w-16 aspect-h-9 relative">
                     <img
                       src={post.image}
