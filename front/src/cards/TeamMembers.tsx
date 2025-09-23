@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Plus, Search, Star, Eye, Edit, Trash2, Users, UserCheck, UserX } from 'lucide-react';
-import { Button } from './../components/ui/button';
+import { Button } from './../components/ui/Button';
 import { Input } from './../components/ui/input';
 import { Badge } from './../components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from './../components/ui/Card';
