@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
-import GalleryImageCard from '../components/ui/GalleryImageCard';
+import GalleryImageCard from './../components/ui/GalleryImageCard';
 
 const galleryImages = [
   { id: 1, src: 'https://i.pinimg.com/1200x/99/ca/4d/99ca4dbc70591a3958079a4012a886cd.jpg', alt: 'Panneaux solaires', category: 'projects', description: "Installation de panneaux solaires dans une école rurale" },
