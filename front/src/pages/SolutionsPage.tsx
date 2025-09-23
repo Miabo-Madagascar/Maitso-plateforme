@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { PieChart, Leaf, GraduationCap, LeafyGreen } from 'lucide-react';
-import { Button } from './../components/ui/button';
+import { Button } from './../components/ui/Button';
 
 const solutions = [
   {
