@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button } from '../components/ui/button';
-import { Card, CardContent } from '../components/ui/Card';
+import { Button } from './../components/ui/button';
+import { Card, CardContent } from './../components/ui/Card';
 import { MapPin, Phone, Mail, Send, CheckCircle, Instagram, Facebook, Linkedin } from 'lucide-react';
 
 const ContactPage = () => {
@@ -134,10 +134,22 @@ const ContactPage = () => {
 														type="submit"
 														className="w-full md:w-auto"
 														size="lg"
-														isLoading={isSubmitting}
+														disabled={isSubmitting}
 													>
-														<Send className="h-4 w-4 mr-2" />
-														Envoyer le message
+														{isSubmitting ? (
+															<>
+																<svg className="animate-spin h-4 w-4 mr-2 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																	<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+																	<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+																</svg>
+																Envoi...
+															</>
+														) : (
+															<>
+																<Send className="h-4 w-4 mr-2" />
+																Envoyer le message
+															</>
+														)}
 													</Button>
 												</div>
 											</div>

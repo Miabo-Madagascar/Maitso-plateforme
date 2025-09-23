@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { GlassDashboard } from "../components/dashboard/GlassDashboard";
-import { GlassSidebar } from "../components/dashboard/GlassSidebar";
+import { GlassDashboard } from "./../components/dashboard/GlassDashboard";
+import { GlassSidebar } from "./../components/dashboard/GlassSidebar";
 import {LifeBuoy,Settings as SettingsIcon,UserPlus, ExternalLink,BookOpen,UploadCloud,ShieldCheck,} from "lucide-react";
 
 const MOCK_CONNECTION_HISTORY = [
