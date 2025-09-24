@@ -3,26 +3,29 @@ name: Deploy Backend to Elastic Beanstalk
 on:
   push:
     branches:
-      - aws-deploy  # Déclenche le workflow uniquement sur cette branche
+      - aws-deploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout uniquement la branche aws-deploy
+      # 1️⃣ Checkout de la branche aws-deploy
       - name: Checkout aws-deploy branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           ref: aws-deploy
 
-      # 2️⃣ Installer zip si nécessaire
+      # 2️⃣ Installer zip (utile pour zipper les fichiers)
       - name: Install zip
         run: sudo apt-get update && sudo apt-get install -y zip
 
-      # 3️⃣ Créer un zip du contenu de la branche (sans le dossier .git)
-      - name: Zip backend branch
-        run: zip -r app.zip . -x '*.git*'
+      # 3️⃣ Zip uniquement le contenu du dossier aws
+      - name: Zip AWS folder
+        run: |
+          cd aws
+          zip -r ../app.zip . -x '*.git*'
+          cd ..
 
       # 4️⃣ Déployer sur Elastic Beanstalk
       - name: Deploy to Elastic Beanstalk
@@ -30,9 +33,12 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: eu-north-1                   # Remplace par ta région si besoin
           application_name: ${{ secrets.EB_APPLICATION }}
           environment_name: ${{ secrets.EB_ENVIRONMENT }}
-          deployment_package: app.zip
-          version_label: "v-${{ github.sha }}"  # Génère un label unique par commit
+          region: ${{ secrets.AWS_REGION }}
+          version_label: v-${{ github.sha }}
+          bucket_name: ${{ secrets.EB_BUCKET_NAME }}   # Optionnel si tu as configuré un bucket
+          file: app.zip
           wait_for_deployment: true
+          use_existing_version_if_available: true
+
