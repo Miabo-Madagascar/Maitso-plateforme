@@ -3,16 +3,22 @@ name: Deploy to Elastic Beanstalk
 on:
   push:
     branches:
-      - aws-deploy  # Branche à déployer automatiquement
+      - aws-deploy  # Déclenchement automatique sur cette branche
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      # 1️⃣ Récupérer le contenu de la branche aws-deploy
+      - name: Checkout aws-deploy branch
         uses: actions/checkout@v3
 
+      # 2️⃣ Créer automatiquement un zip du contenu de la branche
+      - name: Zip aws-deploy content
+        run: zip -r app.zip . -x '*.git*'
+
+      # 3️⃣ Déployer sur Elastic Beanstalk
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
@@ -22,3 +28,4 @@ jobs:
           environment_name: ${{ secrets.EB_ENVIRONMENT }}
           region: ${{ secrets.AWS_REGION }}
           version_label: ${{ github.sha }}
+          deployment_package: app.zip
