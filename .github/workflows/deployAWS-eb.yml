@@ -1,38 +1,37 @@
-name: Deploy Backend to Elastic Beanstalk
+name: Deploy Node.js to Elastic Beanstalk
 
 on:
   push:
     branches:
-      - aws-deploy  # <- déclenche uniquement sur cette branche
+      - aws-deploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout seulement la branche aws-deploy
       - name: Checkout aws-deploy branch
         uses: actions/checkout@v3
         with:
-          ref: aws-deploy  # <- assure que seul cette branche est checkout
+          ref: aws-deploy  # <-- ici tu forces la branche
 
-      # 2️⃣ Installer zip (si pas déjà présent)
-      - name: Install zip
-        run: sudo apt-get install -y zip
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
-      # 3️⃣ Créer un zip du backend à la racine
-      - name: Zip backend files
+      # Zip seulement le contenu de la branche
+      - name: Zip backend branch
         run: zip -r app.zip . -x '*.git*'
 
-      # 4️⃣ Déployer sur Elastic Beanstalk
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: ${{ secrets.AWS_REGION }}
           application_name: ${{ secrets.EB_APPLICATION }}
           environment_name: ${{ secrets.EB_ENVIRONMENT }}
+          region: ${{ secrets.AWS_REGION }}
           deployment_package: app.zip
-          version_label: ${{ github.sha }}  # <- version unique basée sur le commit
           wait_for_deployment: true
+          use_existing_version_if_available: true
