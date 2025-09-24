@@ -10,28 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      # 1️⃣ Checkout du code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install zip
-      run: sudo apt-get update && sudo apt-get install -y zip
+      # 2️⃣ Installer zip si nécessaire
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install -y zip
 
-    - name: Zip AWS folder
-      run: |
-        cd aws
-        zip -r ../app.zip .
-        cd ..
+      # 3️⃣ Créer Procfile dans le dossier aws
+      - name: Create Procfile
+        run: |
+          echo "web: node server.js" > aws/Procfile
 
+      # 4️⃣ Zipper le dossier aws
+      - name: Zip AWS folder
+        run: |
+          cd aws
+          zip -r ../app.zip .
+          cd ..
 
-    - name: Deploy to Elastic Beanstalk
-      uses: einaregilsson/beanstalk-deploy@v22
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: ${{ secrets.EB_APPLICATION }}
-        environment_name: ${{ secrets.EB_ENVIRONMENT }}
-        region: eu-north-1
-        version_label: v-${{ github.sha }}
-        deployment_package: app.zip
-        wait_for_deployment: true
+      # 5️⃣ Déployer sur Elastic Beanstalk
+      - name: Deploy to Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v22
+        with:
+          application_name: ${{ secrets.EB_APPLICATION }}
+          environment_name: ${{ secrets.EB_ENVIRONMENT }}
+          version_label: v-${{ github.sha }}
+          region: eu-north-1
+          bucket_name: ""  # Laisse vide pour que le plugin crée le bucket si nécessaire
+          deployment_package: app.zip
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          wait_for_deployment: true
+          use_existing_version_if_available: true  # ⚡ évite les erreurs de version déjà existante
 
