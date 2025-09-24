@@ -1,31 +1,38 @@
-name: Deploy to Elastic Beanstalk
+name: Deploy Backend to Elastic Beanstalk
 
 on:
   push:
     branches:
-      - aws-deploy  # Déclenchement automatique sur cette branche
+      - aws-deploy  # <- déclenche uniquement sur cette branche
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer le contenu de la branche aws-deploy
+      # 1️⃣ Checkout seulement la branche aws-deploy
       - name: Checkout aws-deploy branch
         uses: actions/checkout@v3
+        with:
+          ref: aws-deploy  # <- assure que seul cette branche est checkout
 
-      # 2️⃣ Créer automatiquement un zip du contenu de la branche
-      - name: Zip aws-deploy content
+      # 2️⃣ Installer zip (si pas déjà présent)
+      - name: Install zip
+        run: sudo apt-get install -y zip
+
+      # 3️⃣ Créer un zip du backend à la racine
+      - name: Zip backend files
         run: zip -r app.zip . -x '*.git*'
 
-      # 3️⃣ Déployer sur Elastic Beanstalk
+      # 4️⃣ Déployer sur Elastic Beanstalk
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v22
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
           application_name: ${{ secrets.EB_APPLICATION }}
           environment_name: ${{ secrets.EB_ENVIRONMENT }}
-          region: ${{ secrets.AWS_REGION }}
-          version_label: ${{ github.sha }}
           deployment_package: app.zip
+          version_label: ${{ github.sha }}  # <- version unique basée sur le commit
+          wait_for_deployment: true
