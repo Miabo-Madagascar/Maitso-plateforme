@@ -18,7 +18,10 @@ jobs:
 
     - name: Zip AWS folder
       run: |
-        zip -r app.zip aws/*
+        cd aws
+        zip -r ../app.zip .
+        cd ..
+
 
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v22
