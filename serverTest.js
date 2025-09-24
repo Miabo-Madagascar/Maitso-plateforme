@@ -1,12 +1,22 @@
-const http = require('http');
+const AWS = require('aws-sdk');
 
-const port = process.env.PORT || 8080;
+// Lecture des variables d'environnement
+const REGION = process.env.AWS_REGION_MAITSO;
+const TABLE_NAME = process.env.DYNAMODB_TABLE_MAITSO;
 
-const requestHandler = (req, res) => {
-  res.end('Hello from Elastic Beanstalk!');
+// Configuration du client DynamoDB
+const dynamoDB = new AWS.DynamoDB.DocumentClient({ region: REGION });
+
+// Exemple : récupérer tous les items de la table
+const getAllSensors = async () => {
+  const params = {
+    TableName: TABLE_NAME
+  };
+  try {
+    const data = await dynamoDB.scan(params).promise();
+    return data.Items;
+  } catch (err) {
+    console.error("Erreur DynamoDB:", err);
+    return [];
+  }
 };
-
-const server = http.createServer(requestHandler);
-server.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
