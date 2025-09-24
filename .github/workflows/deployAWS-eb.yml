@@ -1,4 +1,4 @@
-name: Deploy Backend to Elastic Beanstalk
+name: Deploy AWS Backend
 
 on:
   push:
@@ -10,35 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout de la branche aws-deploy
-      - name: Checkout aws-deploy branch
-        uses: actions/checkout@v3
-        with:
-          ref: aws-deploy
+    - name: Checkout repo
+      uses: actions/checkout@v3
 
-      # 2️⃣ Installer zip (utile pour zipper les fichiers)
-      - name: Install zip
-        run: sudo apt-get update && sudo apt-get install -y zip
+    - name: Install zip
+      run: sudo apt-get update && sudo apt-get install -y zip
 
-      # 3️⃣ Zip uniquement le contenu du dossier aws
-      - name: Zip AWS folder
-        run: |
-          cd aws
-          zip -r ../app.zip . -x '*.git*'
-          cd ..
+    - name: Zip AWS folder
+      run: |
+        zip -r app.zip aws/*
 
-      # 4️⃣ Déployer sur Elastic Beanstalk
-      - name: Deploy to Elastic Beanstalk
-        uses: einaregilsson/beanstalk-deploy@v22
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: ${{ secrets.EB_APPLICATION }}
-          environment_name: ${{ secrets.EB_ENVIRONMENT }}
-          region: ${{ secrets.AWS_REGION }}
-          version_label: v-${{ github.sha }}
-          bucket_name: ${{ secrets.EB_BUCKET_NAME }}   # Optionnel si tu as configuré un bucket
-          file: app.zip
-          wait_for_deployment: true
-          use_existing_version_if_available: true
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v22
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: ${{ secrets.EB_APPLICATION }}
+        environment_name: ${{ secrets.EB_ENVIRONMENT }}
+        region: eu-north-1
+        version_label: v-${{ github.sha }}
+        deployment_package: app.zip
+        wait_for_deployment: true
 
