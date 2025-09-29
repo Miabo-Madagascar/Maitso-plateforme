@@ -138,7 +138,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               href="/contact"
               aria-label="Contacter notre équipe pour plus d'informations"
               onClick={() => window.gtag?.('event', 'click', { event_category: 'HeroSection', event_label: 'Contact' })}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-white font-bold shadow-md hover:from-emerald-500 hover:to-teal-500 transition-all duration-300 text-lg text-shadow-md"
+              className="min-w-[220px] flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-white font-bold shadow-md hover:from-emerald-500 hover:to-teal-500 transition-all duration-300 text-lg text-shadow-md"
             >
               Nous contacter
             </a>
@@ -146,12 +146,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               href="/solutions"
               aria-label="Découvrir nos solutions écologiques"
               onClick={() => window.gtag?.('event', 'click', { event_category: 'HeroSection', event_label: 'Solutions' })}
-              className="px-8 py-3 rounded-full bg-white/05 dark:bg-slate-900/05 border-2 border-teal-400/50 text-emerald-400 dark:text-teal-300 font-bold hover:bg-emerald-400/10 transition-all duration-300 text-lg text-shadow-md"
+              className="min-w-[220px] flex items-center justify-center px-8 py-3 rounded-full bg-white/05 dark:bg-slate-900/05 border-2 border-teal-400/50 text-emerald-400 dark:text-teal-300 font-bold hover:bg-emerald-400/10 transition-all duration-300 text-lg text-shadow-md"
             >
               Découvrir nos solutions
             </a>
             {isFromEcosia ? (
-              <span className="px-8 py-3 rounded-full bg-gradient-to-r from-green-600 to-cyan-400 text-white font-bold shadow-md text-lg text-shadow-md">
+              <span className="min-w-[220px] flex items-center justify-center px-8 py-3 rounded-full bg-gradient-to-r from-green-600 to-cyan-400 text-white font-bold shadow-md text-lg text-shadow-md">
                 Merci d'utiliser Ecosia 🌱
               </span>
             ) : (
@@ -159,9 +159,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 href="https://www.ecosia.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border-2 border-green-600 
-                          rounded-full px-4 py-2 transition-all duration-300 
-                          hover:bg-green-50"
+                className="min-w-[220px] flex items-center justify-center px-8 py-3 rounded-full border-2 border-green-600 transition-all duration-300 hover:bg-green-50"
               >
                 <img
                   src="/Ecosia.png"
@@ -169,11 +167,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   className="w-6 h-6"
                 />
                 <span className="text-green-600 font-medium">
-                  Ecosia, recommandé
+                  Ecosia recommandé
                 </span>
               </a>
-
-
             )}
           </motion.div>
         </div>
