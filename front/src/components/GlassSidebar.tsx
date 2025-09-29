@@ -205,7 +205,7 @@ export function GlassSidebar({ activeItem, onItemClick }: GlassSidebarProps) {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl blur-sm opacity-20 animate-pulse" />
               <img
-                src="/src/side.jpg"
+                src="/side.jpg"
                 alt="Logo Maitso"
                 className="relative w-9 h-9 rounded-xl object-cover shadow-lg border border-white/20 hover:scale-105 transition-transform duration-200"
               />
