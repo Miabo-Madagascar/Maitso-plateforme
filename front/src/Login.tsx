@@ -27,7 +27,7 @@ export default function Login() {
        {/* Header avec logo */}
 <div className="-mt-10 text-center">
   <img
-    src="/src/logo.jpg"
+    src="/logo.png"
     alt="App logo"
     className="w-40 h-40 mx-auto  object-contain"
   />
@@ -126,7 +126,7 @@ export default function Login() {
         <div className="absolute inset-0">
           <img
             className="w-full h-full object-cover scale-105 -translate-x-6 transition-transform duration-700"
-            src= "/src/img.png"
+            src= "/login-img.png"
             alt="Beautiful monstera plant leaves"
           />
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white/20"></div>
