@@ -170,14 +170,14 @@ const Navbar = () => {
                 >
                   Se connecter
                 </Link>
-
+{/* 
                 <Link
                   to="/signup"
                   className="py-2 text-green-600 font-medium dark:text-green-400"
                   onClick={closeMenu}
                 >
                   S'inscrire
-                </Link>
+                </Link> */}
                 
               </>
             )}
