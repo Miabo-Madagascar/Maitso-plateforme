@@ -1,4 +1,15 @@
 import React, { useEffect, useState, useMemo } from 'react';
+
+// Détection Ecosia
+const useEcosia = () => {
+  const [isFromEcosia, setIsFromEcosia] = useState(false);
+  useEffect(() => {
+    if (typeof document !== "undefined" && document.referrer.includes("ecosia.org")) {
+      setIsFromEcosia(true);
+    }
+  }, []);
+  return isFromEcosia;
+};
 import { motion } from 'framer-motion';
 
 interface HeroSectionProps {
@@ -63,6 +74,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   }, [selectedImage]);
 
   const handleImageLoad = () => setIsImageLoading(false);
+
+  const isFromEcosia = useEcosia();
 
   return (
     <div className="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
@@ -137,6 +150,31 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             >
               Découvrir nos solutions
             </a>
+            {isFromEcosia ? (
+              <span className="px-8 py-3 rounded-full bg-gradient-to-r from-green-600 to-cyan-400 text-white font-bold shadow-md text-lg text-shadow-md">
+                Merci d'utiliser Ecosia 🌱
+              </span>
+            ) : (
+              <a
+                href="https://www.ecosia.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border-2 border-green-600 
+                          rounded-full px-4 py-2 transition-all duration-300 
+                          hover:bg-green-50"
+              >
+                <img
+                  src="/Ecosia.png"
+                  alt="Ecosia"
+                  className="w-6 h-6"
+                />
+                <span className="text-green-600 font-medium">
+                  Ecosia, recommandé
+                </span>
+              </a>
+
+
+            )}
           </motion.div>
         </div>
       </div>
