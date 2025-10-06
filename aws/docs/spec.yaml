@@ -1,0 +1,236 @@
+openapi: 3.0.3
+info:
+  title: IoT Gateway Sensors API
+  description: API pour gérer les données des capteurs (température, humidité, humidité du sol) collectées par des gateways IoT.
+  version: "1.0.0"
+servers:
+  - url: https://api.maitso.com/v1
+
+paths:
+  /sensors:
+    post:
+      summary: Créer une nouvelle donnée de capteur
+      tags:
+        - sensors
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SensorData'
+      responses:
+        '201':
+          description: Donnée de capteur créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorResponse'
+    get:
+      summary: Lister toutes les données (tous devices)
+      tags:
+        - sensors
+      parameters:
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Liste des données de capteurs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorData'
+
+  /sensors/{device_id}:
+    get:
+      summary: Récupérer toutes les données d’un capteur précis
+      tags:
+        - devices
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: from
+          schema:
+            type: string
+            format: date-time
+        - in: query
+          name: to
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Liste des données du capteur
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  device_id:
+                    type: string
+                  sensors:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SensorData'
+        '404':
+          description: Capteur non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /sensors/{device_id}/{timestamp}:
+    get:
+      summary: Récupérer une donnée précise d’un capteur
+      tags:
+        - devices
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: timestamp
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Donnée trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorData'
+        '404':
+          description: Donnée non trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Mettre à jour une donnée de capteur
+      tags:
+        - devices
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: timestamp
+          required: true
+          schema:
+            type: string
+            format: date-time
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                temperature:
+                  type: number
+                humidity:
+                  type: number
+                soil_moisture:
+                  type: number
+      responses:
+        '200':
+          description: Donnée mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorResponse'
+
+    delete:
+      summary: Supprimer une donnée de capteur
+      tags:
+        - devices
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: timestamp
+          required: true
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Donnée supprimée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          description: Donnée non trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    SensorData:
+      type: object
+      properties:
+        device_id:
+          type: string
+          example: gateway-maitsomadagascar-01
+        timestamp:
+          type: string
+          format: date-time
+          example: 2025-09-24T18:00:00Z
+        temperature:
+          type: number
+          example: 26.5
+        humidity:
+          type: number
+          example: 78
+        soil_moisture:
+          type: number
+          example: 42
+
+    SensorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Sensor data recorded successfully
+        data:
+          $ref: '#/components/schemas/SensorData'
+
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Sensor data deleted successfully
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Sensor data not found

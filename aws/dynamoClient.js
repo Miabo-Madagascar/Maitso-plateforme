@@ -1,3 +1,4 @@
+require('dotenv').config();
 const AWS = require('aws-sdk');
 
 const REGION = process.env.AWS_REGION_MAITSO;
