@@ -1,0 +1,2719 @@
+[
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1733852880
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1733852880
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116054
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116054
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116064
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116064
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116069
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116069
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116074
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116074
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116079
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116079
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116084
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116084
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116089
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116089
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116094
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116094
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116099
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116099
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116104
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116104
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116109
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116109
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116114
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116114
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116119
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116119
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116124
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116124
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116129
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116129
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116134
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116134
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116139
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116139
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116144
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116144
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116149
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116149
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116154
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116154
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116159
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116159
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116164
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116164
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116169
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116169
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116174
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116174
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116179
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116179
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116184
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116184
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116189
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116189
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116194
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116194
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116199
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116199
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116204
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116204
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116209
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116209
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116214
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116214
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116219
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116219
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116224
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116224
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116229
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116229
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116234
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116234
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116239
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116239
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116244
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116244
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116249
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116249
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116254
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116254
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116259
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116259
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116264
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116264
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116269
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116269
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116274
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116274
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116279
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116279
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116284
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116284
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116289
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116289
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116294
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116294
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116299
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116299
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116304
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116304
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116309
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116309
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116314
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116314
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116319
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116319
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116324
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116324
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116329
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116329
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116334
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116334
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116339
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116339
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116344
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116344
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116349
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116349
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116354
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116354
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116359
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116359
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116364
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116364
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116369
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116369
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116374
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116374
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116379
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116379
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116384
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116384
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116389
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116389
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116394
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116394
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116399
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116399
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116404
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116404
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116409
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116409
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116414
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116414
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116419
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116419
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116424
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116424
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116429
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116429
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116434
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116434
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116439
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116439
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116444
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116444
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116449
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116449
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116454
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116454
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116459
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116459
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116464
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116464
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116469
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116469
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116474
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116474
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116479
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116479
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116484
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116484
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116489
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116489
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116494
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116494
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116499
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116499
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116504
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116504
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116509
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116509
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116514
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116514
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116519
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116519
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116524
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116524
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116529
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116529
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116534
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116534
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116539
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116539
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116544
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116544
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116549
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116549
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116554
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116554
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116559
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116559
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116564
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116564
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116569
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116569
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116574
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116574
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116579
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116579
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116584
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116584
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116589
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116589
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116594
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116594
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116599
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116599
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116604
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116604
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116609
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116609
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116614
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116614
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116619
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116619
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116624
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116624
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116629
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116629
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116634
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116634
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116639
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116639
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116644
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116644
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116649
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116649
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116654
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116654
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116659
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116659
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116664
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116664
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116669
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116669
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116674
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116674
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116679
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116679
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116684
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116684
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116689
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116689
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116694
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116694
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116699
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116699
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116704
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116704
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116709
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116709
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116714
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116714
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116719
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116719
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116724
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116724
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116729
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116729
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116734
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116734
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 65.8,
+      "TCO": 24.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.021,
+      "BR": 0.8,
+      "PA": 1005.2,
+      "TMP": 26.45,
+      "EAU": 1,
+      "DEC_MGP": 1,
+      "PCO": 0.12,
+      "timestamp": 1760116739
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760116739
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 70.8,
+      "TCO": 25.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.025,
+      "BR": 0.9,
+      "PA": 1007.2,
+      "TMP": 30.45,
+      "EAU": 2,
+      "DEC_MGP": 1,
+      "PCO": 0.15,
+      "timestamp": 1760117439
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760117439
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 70.8,
+      "TCO": 25.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.025,
+      "BR": 0.9,
+      "PA": 1007.2,
+      "TMP": 30.45,
+      "EAU": 2,
+      "DEC_MGP": 1,
+      "PCO": 0.15,
+      "timestamp": 1760117448
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760117448
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 70.8,
+      "TCO": 25.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.025,
+      "BR": 0.9,
+      "PA": 1007.2,
+      "TMP": 30.45,
+      "EAU": 2,
+      "DEC_MGP": 1,
+      "PCO": 0.15,
+      "timestamp": 1760117453
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760117453
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 70.8,
+      "TCO": 25.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.025,
+      "BR": 0.9,
+      "PA": 1007.2,
+      "TMP": 30.45,
+      "EAU": 2,
+      "DEC_MGP": 1,
+      "PCO": 0.15,
+      "timestamp": 1760117458
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760117458
+  },
+  {
+    "payload": {
+      "DEC_PAP": 0,
+      "HUM": 70.8,
+      "TCO": 25.98,
+      "device_id": "gateway-maitsomadagascar-01",
+      "DEC_ORG": 0,
+      "VIB": 0.025,
+      "BR": 0.9,
+      "PA": 1007.2,
+      "TMP": 30.45,
+      "EAU": 2,
+      "DEC_MGP": 1,
+      "PCO": 0.15,
+      "timestamp": 1760117463
+    },
+    "device_id": "gateway-maitsomadagascar-01",
+    "timestamp": 1760117463
+  }
+]

@@ -1,79 +1,156 @@
 openapi: 3.0.3
 info:
-  title: IoT Gateway Sensors API
-  description: API pour gérer les données des capteurs (température, humidité, humidité du sol) collectées par des gateways IoT.
-  version: "1.0.0"
+  title: API Données Capteurs
+  version: 1.1.0
+  description: >
+    API REST pour interroger les données capteurs d’un réseau IoT.
+    Elle permet de récupérer toutes les mesures brutes ou d’effectuer
+    des agrégations (moyennes, min, max) par période, avec filtres.
+
 servers:
-  - url: https://api.maitso.com/v1
+  - url: https://api.example.com
 
 paths:
-  /sensors:
+  /sensors/{device_id}/predict:
     post:
-      summary: Créer une nouvelle donnée de capteur
-      tags:
-        - sensors
+      summary: Prédiction RSE pour un device spécifique
+      description: |
+        Récupère les 14 derniers jours de données du device, construit la séquence pour le modèle,
+        et renvoie les prédictions, score de risque, alertes et recommandations RSE.
+      parameters:
+        - name: device_id
+          in: path
+          required: true
+          description: Identifiant du device
+          schema:
+            type: string
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SensorData'
+              type: object
+              required:
+                - model_type
+              properties:
+                model_type:
+                  type: string
+                  enum: [lstm, cnn]
+                  description: Type de modèle à utiliser pour la prédiction
+                  example: lstm
       responses:
-        '201':
-          description: Donnée de capteur créée avec succès
+        "200":
+          description: Résultat de la prédiction
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SensorResponse'
+                type: object
+                properties:
+                  model:
+                    type: string
+                    description: Type de modèle utilisé
+                    example: lstm
+                  prediction:
+                    type: array
+                    description: Vecteur de prédiction dénormalisé
+                    items:
+                      type: number
+                  risk_score:
+                    type: number
+                    description: Score de risque RSE calculé à partir des seuils métier
+                    example: 0.42
+                  alerts:
+                    type: object
+                    description: Dictionnaire des alertes métier détectées
+                    additionalProperties:
+                      type: boolean
+                    example:
+                      ALERT_CO2: true
+                      ALERT_NOISE: false
+                  recommendation:
+                    type: array
+                    description: Liste des recommandations RSE
+                    items:
+                      type: object
+                      properties:
+                        TS:
+                          type: string
+                          format: date
+                          description: Date de la prédiction
+                          example: "2025-10-10"
+                        ALERT_RSE:
+                          type: integer
+                          description: Indicateur global d'alerte RSE
+                          example: 1
+                        priority:
+                          type: integer
+                          description: Niveau de priorité de la recommandation
+                          example: 4
+                        domain:
+                          type: string
+                          description: Domaine concerné (ex; santé, environnement, social)
+                          example: santé/env
+                        recommendation:
+                          type: string
+                          description: Texte de la recommandation
+                          example: Renforcer ventilation (VMC), optimiser extraction
+        "400":
+          description: Requête invalide (model_type inconnu ou pas assez de données)
+        "500":
+          description: Erreur interne du serveur
+
+  /sensors/data:
     get:
-      summary: Lister toutes les données (tous devices)
-      tags:
-        - sensors
+      summary: Récupère toutes les données capteurs
+      description: Retourne toutes les données disponibles avec filtres facultatifs.
       parameters:
-        - in: query
-          name: from
-          schema:
-            type: string
-            format: date-time
-        - in: query
-          name: to
-          schema:
-            type: string
-            format: date-time
+        - $ref: "#/components/parameters/from"
+        - $ref: "#/components/parameters/to"
+        - $ref: "#/components/parameters/group_by"
+        - $ref: "#/components/parameters/metrics"
       responses:
-        '200':
-          description: Liste des données de capteurs
+        "200":
+          description: Liste des données capteurs
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SensorData'
+                  $ref: "#/components/schemas/SensorData"
 
-  /sensors/{device_id}:
+  /sensors/data/{device_id}:
     get:
-      summary: Récupérer toutes les données d’un capteur précis
-      tags:
-        - devices
+      summary: Récupère les données d’un device spécifique
+      description: Retourne toutes les données brutes pour un device donné.
       parameters:
-        - in: path
-          name: device_id
-          required: true
-          schema:
-            type: string
-        - in: query
-          name: from
-          schema:
-            type: string
-            format: date-time
-        - in: query
-          name: to
-          schema:
-            type: string
-            format: date-time
+        - $ref: "#/components/parameters/device_id_path"
+        - $ref: "#/components/parameters/from"
+        - $ref: "#/components/parameters/to"
+        - $ref: "#/components/parameters/group_by"
+        - $ref: "#/components/parameters/metrics"
       responses:
-        '200':
-          description: Liste des données du capteur
+        "200":
+          description: Liste des données pour le device
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SensorData"
+
+  /sensors/data/{device_id}/avg:
+    get:
+      summary: Moyenne des données d’un device
+      description: Retourne les valeurs moyennes des capteurs pour un device spécifique.
+      parameters:
+        - $ref: "#/components/parameters/device_id_path"
+        - $ref: "#/components/parameters/from"
+        - $ref: "#/components/parameters/to"
+        - $ref: "#/components/parameters/group_by"
+        - $ref: "#/components/parameters/metrics"
+      responses:
+        "200":
+          description: Valeurs moyennes pour le device
           content:
             application/json:
               schema:
@@ -81,116 +158,116 @@ paths:
                 properties:
                   device_id:
                     type: string
-                  sensors:
+                  from:
+                    type: integer
+                    format: int64
+                  to:
+                    type: integer
+                    format: int64
+                  group_by:
+                    type: string
+                  metrics:
                     type: array
                     items:
-                      $ref: '#/components/schemas/SensorData'
-        '404':
-          description: Capteur non trouvé
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                      type: string
+                  averages:
+                    $ref: "#/components/schemas/SensorMetrics"
 
-  /sensors/{device_id}/{timestamp}:
+  /sensors/data/{device_id}/stats:
     get:
-      summary: Récupérer une donnée précise d’un capteur
-      tags:
-        - devices
+      summary: Statistiques agrégées pour un device
+      description: |
+        Retourne les statistiques agrégées (moyenne, min, max) pour un device.
+        Supporte le filtrage temporel et le regroupement par période.
       parameters:
-        - in: path
-          name: device_id
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: timestamp
-          required: true
-          schema:
-            type: string
-            format: date-time
+        - $ref: "#/components/parameters/device_id_path"
+        - $ref: "#/components/parameters/from"
+        - $ref: "#/components/parameters/to"
+        - $ref: "#/components/parameters/group_by"
+        - $ref: "#/components/parameters/metrics"
       responses:
-        '200':
-          description: Donnée trouvée
+        "200":
+          description: Statistiques agrégées par période
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SensorData'
-        '404':
-          description: Donnée non trouvée
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-    put:
-      summary: Mettre à jour une donnée de capteur
-      tags:
-        - devices
-      parameters:
-        - in: path
-          name: device_id
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: timestamp
-          required: true
-          schema:
-            type: string
-            format: date-time
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                temperature:
-                  type: number
-                humidity:
-                  type: number
-                soil_moisture:
-                  type: number
-      responses:
-        '200':
-          description: Donnée mise à jour avec succès
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SensorResponse'
-
-    delete:
-      summary: Supprimer une donnée de capteur
-      tags:
-        - devices
-      parameters:
-        - in: path
-          name: device_id
-          required: true
-          schema:
-            type: string
-        - in: path
-          name: timestamp
-          required: true
-          schema:
-            type: string
-            format: date-time
-      responses:
-        '200':
-          description: Donnée supprimée avec succès
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageResponse'
-        '404':
-          description: Donnée non trouvée
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                type: object
+                properties:
+                  device_id:
+                    type: string
+                  from:
+                    type: integer
+                    format: int64
+                  to:
+                    type: integer
+                    format: int64
+                  group_by:
+                    type: string
+                  metrics:
+                    type: array
+                    items:
+                      type: string
+                  stats:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        period_start:
+                          type: integer
+                          format: int64
+                        period_end:
+                          type: integer
+                          format: int64
+                        values:
+                          type: object
+                          additionalProperties:
+                            type: object
+                            properties:
+                              avg:
+                                type: number
+                              min:
+                                type: number
+                              max:
+                                type: number
 
 components:
+  parameters:
+    device_id_path:
+      name: device_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Identifiant unique du device
+    from:
+      name: from
+      in: query
+      schema:
+        type: integer
+        format: int64
+      description: Timestamp UNIX de début (optionnel)
+    to:
+      name: to
+      in: query
+      schema:
+        type: integer
+        format: int64
+      description: Timestamp UNIX de fin (optionnel)
+    group_by:
+      name: group_by
+      in: query
+      schema:
+        type: string
+        enum: [hour, day, weekly, month]
+      description: Période de regroupement des données
+    metrics:
+      name: metrics
+      in: query
+      schema:
+        type: string
+        example: "TMP,HUM,PA"
+      description: Liste des capteurs à inclure, séparés par virgules
+
   schemas:
     SensorData:
       type: object
@@ -199,38 +276,52 @@ components:
           type: string
           example: gateway-maitsomadagascar-01
         timestamp:
-          type: string
-          format: date-time
-          example: 2025-09-24T18:00:00Z
-        temperature:
-          type: number
-          example: 26.5
-        humidity:
-          type: number
-          example: 78
-        soil_moisture:
-          type: number
-          example: 42
+          type: integer
+          format: int64
+          example: 1760116064
+        payload:
+          $ref: "#/components/schemas/SensorMetrics"
 
-    SensorResponse:
+    SensorMetrics:
       type: object
       properties:
-        message:
-          type: string
-          example: Sensor data recorded successfully
-        data:
-          $ref: '#/components/schemas/SensorData'
-
-    MessageResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Sensor data deleted successfully
-
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Sensor data not found
+        TMP:
+          type: number
+          example: 26.45
+          description: Température (°C)
+        HUM:
+          type: number
+          example: 65.8
+          description: Humidité (%)
+        PA:
+          type: number
+          example: 1005.2
+          description: Pression atmosphérique (hPa)
+        VIB:
+          type: number
+          example: 0.021
+          description: Vibration (g)
+        PCO:
+          type: number
+          example: 0.12
+          description: CO (ppm)
+        BR:
+          type: number
+          example: 0.8
+          description: Bruit (dB)
+        EAU:
+          type: integer
+          example: 1
+          description: Présence d’eau (0/1)
+        DEC_PAP:
+          type: integer
+          example: 0
+        DEC_ORG:
+          type: integer
+          example: 0
+        DEC_MGP:
+          type: integer
+          example: 1
+        TCO:
+          type: number
+          example: 24.98

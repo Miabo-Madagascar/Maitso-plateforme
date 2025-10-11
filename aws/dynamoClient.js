@@ -16,6 +16,16 @@ async function getAllItems() {
   }
 }
 
+async function getAllItemsDataLocal() {
+  try {
+    const data = require('./data.json');
+    return data;
+  } catch (err) {
+    console.error('Erreur lecture fichier data.json:', err);
+    return [];
+  }
+}
+
 async function putItem(item) {
   try {
     await dynamoDB.put({ TableName: TABLE_NAME, Item: item }).promise();
