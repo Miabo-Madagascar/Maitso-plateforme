@@ -149,10 +149,29 @@ app.get('/sensors/data/:device_id', async (req, res) => {
 
 
 // Route pour un device spécifique avec ts
-app.get('/sensors/data/:device_id/:ts', async (req, res) => {
+app.get('/sensors/data/:device_id/timestamp/:ts', async (req, res) => {
   let items = await getAllItems();
   items = filterByDevice(items, req.params.device_id);
   items = filterByTimestamp(items, req.params.ts);
+
+  const { metrics } = req.query;
+  if (metrics) {
+    const metricList = metrics.split(',');
+    items = items.map(item => ({
+      ...item,
+      payload: Object.fromEntries(metricList.map(m => [m, item.payload[m]]))
+    }));
+  }
+
+  res.json(items);
+});
+
+// Route pour recuperer la derniere donnees pour un device
+app.get('/sensors/data/:device_id/last', async (req, res) => {
+  let items = await getAllItems();
+  items = filterByDevice(items, req.params.device_id);
+  const sortedItems = items.sort((a, b) => a.timestamp - b.timestamp);
+  items = sortedItems.slice(-1);
 
   const { metrics } = req.query;
   if (metrics) {
