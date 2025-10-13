@@ -1,0 +1,479 @@
+openapi: 3.0.3
+info:
+  title: Sensors API
+  description: API pour récupérer, analyser et prédire les données des capteurs.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Serveur local
+
+components:
+  parameters:
+    from:
+      in: query
+      name: from
+      schema:
+        type: integer
+      description: Timestamp de début pour filtrer les données
+    to:
+      in: query
+      name: to
+      schema:
+        type: integer
+      description: Timestamp de fin pour filtrer les données
+    metrics:
+      in: query
+      name: metrics
+      schema:
+        type: string
+      description: Liste des métriques séparées par des virgules
+    group_by:
+      in: query
+      name: group_by
+      schema:
+        type: string
+        enum: [hour, day, week, month]
+      description: Grouper les données par période
+    limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+      description: Nombre d'éléments par page
+    page:
+      in: query
+      name: page
+      schema:
+        type: integer
+      description: Numéro de page
+  schemas:
+    Payload:
+      type: object
+      properties:
+        TMP:
+          type: number
+          format: float
+        HUM:
+          type: number
+          format: float
+        PCO:
+          type: number
+          format: float
+        TCO:
+          type: number
+          format: float
+        BR:
+          type: number
+          format: float
+        PA:
+          type: number
+          format: float
+        EAU:
+          type: number
+          format: float
+        DEC_ORG:
+          type: number
+          format: float
+        DEC_MGP:
+          type: number
+          format: float
+        DEC_PAP:
+          type: number
+          format: float
+      example:
+        TMP: 25.5
+        HUM: 60.2
+        PCO: 0.03
+        TCO: 0.1
+        BR: 12.0
+        PA: 1012
+        EAU: 5.0
+        DEC_ORG: 0.2
+        DEC_MGP: 0.1
+        DEC_PAP: 0.05
+
+    SensorData:
+      type: object
+      properties:
+        device_id:
+          type: string
+        timestamp:
+          type: integer
+        payload:
+          $ref: '#/components/schemas/Payload'
+      example:
+        device_id: "device_123"
+        timestamp: 1736524800
+        payload:
+          TMP: 25.5
+          HUM: 60.2
+          PCO: 0.03
+          TCO: 0.1
+          BR: 12.0
+          PA: 1012
+          EAU: 5.0
+          DEC_ORG: 0.2
+          DEC_MGP: 0.1
+          DEC_PAP: 0.05
+
+    PaginatedResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+        data:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/SensorData'
+              - type: object
+                properties:
+                  period_start:
+                    type: integer
+                  period_end:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SensorData'
+
+    AverageResponse:
+      type: object
+      properties:
+        device_id:
+          type: string
+        from:
+          type: integer
+          nullable: true
+        to:
+          type: integer
+          nullable: true
+        group_by:
+          type: string
+          nullable: true
+        metrics:
+          type: array
+          items:
+            type: string
+        averages:
+          type: array
+          items:
+            type: object
+            properties:
+              period_start:
+                type: integer
+              period_end:
+                type: integer
+              averages:
+                type: object
+                additionalProperties:
+                  type: number
+
+    StatsResponse:
+      type: object
+      properties:
+        device_id:
+          type: string
+        from:
+          type: integer
+          nullable: true
+        to:
+          type: integer
+          nullable: true
+        group_by:
+          type: string
+          nullable: true
+        metrics:
+          type: array
+          items:
+            type: string
+        stats:
+          type: array
+          items:
+            type: object
+            properties:
+              period_start:
+                type: integer
+              period_end:
+                type: integer
+              values:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    avg:
+                      type: number
+                    min:
+                      type: number
+                    max:
+                      type: number
+
+    PredictRequest:
+      type: object
+      required:
+        - model_type
+      properties:
+        model_type:
+          type: string
+          enum: [lstm, cnn]
+
+    PredictResponse:
+      type: object
+      properties:
+        model:
+          type: string
+          description: Type de modèle utilisé pour la prédiction
+          example: "lstm"
+        prediction:
+          type: object
+          properties:
+            TMP:
+              type: number
+              format: float
+            HUM:
+              type: number
+              format: float
+            PCO:
+              type: number
+              format: float
+            TCO:
+              type: number
+              format: float
+            BR:
+              type: number
+              format: float
+            PA:
+              type: number
+              format: float
+            EAU:
+              type: number
+              format: float
+            DEC_ORG:
+              type: number
+              format: float
+            DEC_MGP:
+              type: number
+              format: float
+            DEC_PAP:
+              type: number
+              format: float
+          example:
+            TMP: 24.594493865966797
+            HUM: 60.41844177246094
+            PCO: 460.5864562988281
+            TCO: 1.5933467149734497
+            BR: 120.34431457519531
+            PA: 1012.8773193359375
+            EAU: 9480.091796875
+            DEC_ORG: 97.60826110839844
+            DEC_MGP: 48.294288635253906
+            DEC_PAP: 37.97844314575195
+        risk_score:
+          type: number
+          format: float
+          example: 0.6098096211548032
+        alerts:
+          type: object
+          properties:
+            ALERT_CO2:
+              type: boolean
+          example:
+            ALERT_CO2: false
+        recommendation:
+          type: array
+          items:
+            type: object
+            properties:
+              TS:
+                type: string
+                format: date
+              ALERT_RSE:
+                type: integer
+              priority:
+                type: integer
+              domain:
+                type: string
+              recommendation:
+                type: string
+            example:
+              TS: "2025-10-13"
+              ALERT_RSE: 1
+              priority: 4
+              domain: "env/éco"
+              recommendation: "Upcycling plastique + contrat recyclage renforcé"
+
+paths:
+  /sensors/data:
+    get:
+      summary: Récupérer toutes les données des capteurs
+      parameters:
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/metrics'
+        - $ref: '#/components/parameters/group_by'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: Liste paginée de données
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse'
+
+  /sensors/data/{device_id}:
+    get:
+      summary: Récupérer les données d'un capteur spécifique
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/metrics'
+        - $ref: '#/components/parameters/group_by'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: Liste paginée des données filtrées
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse'
+
+  /sensors/data/{device_id}/timestamp/{ts}:
+    get:
+      summary: Récupérer les données d'un capteur à un timestamp précis
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: ts
+          required: true
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/metrics'
+      responses:
+        '200':
+          description: Données filtrées
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorData'
+
+  /sensors/data/{device_id}/latest:
+    get:
+      summary: Récupérer la dernière donnée d'un capteur
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/metrics'
+      responses:
+        '200':
+          description: Dernière donnée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorData'
+
+  /sensors/data/{device_id}/avg:
+    get:
+      summary: Récupérer la moyenne des métriques pour un capteur
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/metrics'
+        - $ref: '#/components/parameters/group_by'
+      responses:
+        '200':
+          description: Moyennes des métriques
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AverageResponse'
+
+  /sensors/data/{device_id}/stats:
+    get:
+      summary: Récupérer les statistiques (avg, min, max) des métriques pour un capteur
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/from'
+        - $ref: '#/components/parameters/to'
+        - $ref: '#/components/parameters/metrics'
+        - $ref: '#/components/parameters/group_by'
+      responses:
+        '200':
+          description: Statistiques
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+
+  /sensors/{device_id}/predict:
+    post:
+      summary: Prédire les métriques pour un capteur avec un modèle ML
+      parameters:
+        - in: path
+          name: device_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PredictRequest'
+      responses:
+        '200':
+          description: Résultat de la prédiction
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PredictResponse'
+        '400':
+          description: Erreur dans la requête
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Erreur serveur
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string

@@ -23,6 +23,23 @@ function filterByTime(data, from, to) {
   });
 }
 
+function paginate(data, req) {
+  const limit = parseInt(req.query.limit) || 10;  // nombre d’éléments par page
+  const page = parseInt(req.query.page) || 1;     // numéro de page (1 par défaut)
+
+  const start = (page - 1) * limit;
+  const paginated = data.slice(start, start + limit);
+
+  return {
+    page,
+    limit,
+    total: data.length,
+    totalPages: Math.ceil(data.length / limit),
+    data: paginated
+  };
+}
+
+
 // Conversion timestamp → début de période
 function getPeriodStart(ts, groupBy) {
   const date = new Date(ts * 1000);
@@ -112,13 +129,13 @@ app.get('/sensors/data', async (req, res) => {
       period_end: Math.max(...groupItems.map(d => d.timestamp)),
       data: groupItems
     }));
-    res.json(groupedArray);
+    res.json(paginate(groupedArray, req))
   } else {
-    res.json(items);
+    res.json(paginate(items, req));
   }
 });
 
-// Route pour un device spécifique avec group_by
+// Route pour un device spécifique
 app.get('/sensors/data/:device_id', async (req, res) => {
   let items = await getAllItems();
   items = filterByDevice(items, req.params.device_id);
@@ -141,9 +158,9 @@ app.get('/sensors/data/:device_id', async (req, res) => {
       period_end: Math.max(...groupItems.map(d => d.timestamp)),
       data: groupItems
     }));
-    res.json(groupedArray);
+    res.json(paginate(groupedArray, req));
   } else {
-    res.json(items);
+    res.json(paginate(items, req));
   }
 });
 
@@ -167,11 +184,13 @@ app.get('/sensors/data/:device_id/timestamp/:ts', async (req, res) => {
 });
 
 // Route pour recuperer la derniere donnees pour un device
-app.get('/sensors/data/:device_id/last', async (req, res) => {
+app.get('/sensors/data/:device_id/latest', async (req, res) => {
   let items = await getAllItems();
   items = filterByDevice(items, req.params.device_id);
-  const sortedItems = items.sort((a, b) => a.timestamp - b.timestamp);
-  items = sortedItems.slice(-1);
+  const latest = items.reduce((latest, item) => {
+  return !latest || item.timestamp > latest.timestamp ? item : latest;
+  }, null);
+  items = latest ? [latest] : [];
 
   const { metrics } = req.query;
   if (metrics) {
