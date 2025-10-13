@@ -6,7 +6,7 @@ const TABLE_NAME = process.env.DYNAMODB_TABLE_MAITSO;
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient({ region: REGION });
 
-async function getAllItems() {
+async function getAllItemsDataLocal() {
   try {
     const data = await dynamoDB.scan({ TableName: TABLE_NAME }).promise();
     return data.Items;
@@ -16,7 +16,7 @@ async function getAllItems() {
   }
 }
 
-async function getAllItemsDataLocal() {
+async function getAllItems() {
   try {
     const data = require('./data.json');
     return data;

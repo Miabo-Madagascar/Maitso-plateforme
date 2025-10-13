@@ -1,26 +1,3 @@
-// const express = require('express');
-// const { getAllItems, putItem } = require('./dynamoClient');
-
-// const app = express();
-// app.use(express.json());
-
-// const PORT = process.env.PORT || 8080;
-
-// app.get('/sensors', async (req, res) => {
-//   const items = await getAllItems();
-//   res.json(items);
-// });
-
-// app.post('/sensors', async (req, res) => {
-//   const success = await putItem(req.body);
-//   res.json({ success });
-// });
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-
 const axios = require('axios');
 const express = require('express');
 const { getAllItems, putItem } = require('./dynamoClient');
@@ -32,6 +9,10 @@ const PORT = process.env.PORT || 8080;
 // Helpers
 function filterByDevice(data, device_id) {
   return data.filter(item => item.device_id === device_id);
+}
+
+function filterByTimestamp(data, timestamp) {
+  return data.filter(item => item.timestamp == timestamp);
 }
 
 function filterByTime(data, from, to) {
@@ -167,6 +148,24 @@ app.get('/sensors/data/:device_id', async (req, res) => {
 });
 
 
+// Route pour un device spécifique avec ts
+app.get('/sensors/data/:device_id/:ts', async (req, res) => {
+  let items = await getAllItems();
+  items = filterByDevice(items, req.params.device_id);
+  items = filterByTimestamp(items, req.params.ts);
+
+  const { metrics } = req.query;
+  if (metrics) {
+    const metricList = metrics.split(',');
+    items = items.map(item => ({
+      ...item,
+      payload: Object.fromEntries(metricList.map(m => [m, item.payload[m]]))
+    }));
+  }
+
+  res.json(items);
+});
+
 // Moyenne avec group_by
 app.get('/sensors/data/:device_id/avg', async (req, res) => {
   let items = await getAllItems();
@@ -259,18 +258,19 @@ app.post('/sensors/:device_id/predict', async (req, res) => {
   const sortedItems = items.sort((a, b) => a.timestamp - b.timestamp);
   const last14 = sortedItems.slice(-14);
 
+  // FEAT_COLS = ['TMP_MEAN', 'HUM_MEAN', 'PCO_MEAN', 'TCO_MEAN', 'BR_MEAN', 'PA_MEAN', 'EAU', 'DEC_ORG', 'DEC_MGP', 'DEC_PAP']
   // On suppose que chaque payload a exactement les 10 variables attendues
   const sequence = last14.map(item => [
     item.payload.TMP,
     item.payload.HUM,
     item.payload.PCO,
+    item.payload.TCO,
     item.payload.BR,
-    item.payload.DEC_PAP,
     item.payload.PA,
-    item.payload.VIB,
+    item.payload.EAU,
     item.payload.DEC_ORG,
     item.payload.DEC_MGP,
-    item.payload.TCO
+    item.payload.DEC_PAP
   ]);
 
   try {
