@@ -4,7 +4,7 @@ import { GlassAlertItem } from "./GlassAlertItem";
 import { DashboardHeader } from "./DashboardHeader";
 
 // Types & données
-import type { Period, SensorKey, ActivityDataItem, TooltipProps } from "../src/data/types";
+import type { Period, SensorKey, ActivityDataItem, TooltipProps } from "../data/types";
 import { mockData, defaultThresholds, mockSensors, } from "../data/mockData";
 import { sensorMeta } from "../data/sensorConfig";
 import { classNames, useRecommendations, Chip, SectionTitle } from "../data/utils";
@@ -79,15 +79,20 @@ export function GlassDashboard() {
   // Données combinées pour export
 
   // Dernières valeurs pour recommandations
+  function lastValue<T extends { v?: number }>(arr?: T[] | readonly T[]): T | undefined {
+    if (!arr || arr.length === 0) return undefined;
+    return arr[arr.length - 1];
+  }
+
   const latestVals: Record<SensorKey, number> = {
-    temperature: mockData.temperature.at(-1)?.v ?? 0,
-    humidity: mockData.humidity.at(-1)?.v ?? 0,
-    co2: mockData.co2.at(-1)?.v ?? 0,
-    noise: mockData.noise.at(-1)?.v ?? 0,
-    pm25: mockData.pm25.at(-1)?.v ?? 0,
-    pm10: mockData.pm10.at(-1)?.v ?? 0,
-    no2: mockData.no2.at(-1)?.v ?? 0,
-    o3: mockData.o3.at(-1)?.v ?? 0
+    temperature: lastValue(mockData.temperature)?.v ?? 0,
+    humidity: lastValue(mockData.humidity)?.v ?? 0,
+    co2: lastValue(mockData.co2)?.v ?? 0,
+    noise: lastValue(mockData.noise)?.v ?? 0,
+    pm25: lastValue(mockData.pm25)?.v ?? 0,
+    pm10: lastValue(mockData.pm10)?.v ?? 0,
+    no2: lastValue(mockData.no2)?.v ?? 0,
+    o3: lastValue(mockData.o3)?.v ?? 0
   };
 
   const recs = useRecommendations(latestVals, thresholds);
@@ -127,7 +132,7 @@ export function GlassDashboard() {
   };
 
   const getMetricTitle = () => {
-    return sensorMeta[selectedMetric].label;
+    return sensorMeta[selectedMetric as keyof typeof sensorMeta].label;
   };
 
   const bgGrad = "bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50";
@@ -406,7 +411,7 @@ export function GlassDashboard() {
     <Glass className="p-4">
       <SectionTitle
         icon={<Gauge className="w-5 h-5 text-blue-600" />}
-        title={`Détail — ${sensorMeta[selectedMetric].label}`}
+        title={`Détail — ${sensorMeta[selectedMetric as keyof typeof sensorMeta].label}`}
         right={<Chip>{selectedPeriod.toUpperCase()}</Chip>}
       />
 
@@ -418,7 +423,7 @@ export function GlassDashboard() {
               <XAxis dataKey="t" tick={{ fontSize: 10 }} />
               <YAxis tick={{ fontSize: 10 }} />
               <Tooltip content={<ChartTooltip label={""} payload={[]} />} />
-              <Line type="monotone" dataKey="v" name={sensorMeta[selectedMetric].label} stroke={sensorMeta[selectedMetric].color} strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="v" name={sensorMeta[selectedMetric as keyof typeof sensorMeta].label} stroke={sensorMeta[selectedMetric as keyof typeof sensorMeta].color} strokeWidth={2} dot={false} />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -441,7 +446,7 @@ export function GlassDashboard() {
             <Glass className="p-3">
               <div className="text-xs text-gray-500">Dernière valeur</div>
               <div className="text-xl font-semibold text-gray-900">
-                {latestVals[selectedMetric]} {sensorMeta[selectedMetric].unit}
+                {latestVals[selectedMetric]} {sensorMeta[selectedMetric as keyof typeof sensorMeta].unit}
               </div>
             </Glass>
           </div>
