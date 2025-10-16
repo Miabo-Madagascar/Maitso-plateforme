@@ -215,7 +215,18 @@ const AbonnementsSection: React.FC = () => {
 
   return (
     <div className="w-full h-screen p-3 sm:p-4 bg-white/30 backdrop-blur-xl border border-white/30 shadow-lg text-gray-900 flex flex-col">
-      <div className="flex-1 overflow-auto">
+      {/* Ajout CSS local pour cacher la scrollbar tout en conservant le scroll */}
+      <style>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;     /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* WebKit */
+        }
+      `}</style>
+
+      <div className="flex-1 overflow-auto hide-scrollbar">
         <div className="max-w-7xl mx-auto space-y-6">
 
           {/* Header */}
@@ -457,7 +468,7 @@ const AbonnementsSection: React.FC = () => {
                             <History className="w-4 h-4" />
                             Historique des paiements
                           </p>
-                          <div className="space-y-2 max-h-40 overflow-y-auto">
+                          <div className="space-y-2 max-h-40 overflow-y-auto hide-scrollbar">
                             {subscription.paymentHistory.map((payment, idx) => (
                               <div key={idx} className="flex justify-between items-center p-2 bg-white/10 rounded text-sm">
                                 <div>
