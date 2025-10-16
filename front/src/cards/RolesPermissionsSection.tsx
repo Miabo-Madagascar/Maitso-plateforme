@@ -245,7 +245,19 @@ export default function TeamMembersSection() {
 
   return (
     <div className="w-full h-screen p-3 sm:p-4 bg-white/30 backdrop-blur-xl border border-white/30 shadow-lg text-gray-900 flex flex-col">
-      <div className="flex-1 overflow-auto">
+      {/* Ajout CSS local pour cacher la scrollbar tout en conservant le scroll */}
+      <style>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;     /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* WebKit */
+        }
+      `}</style>
+
+      {/* Appliquer hide-scrollbar ici */}
+      <div className="flex-1 overflow-auto hide-scrollbar">
         <div className="max-w-7xl mx-auto space-y-6 animate-fade-in">
 
           {/* Header */}
@@ -449,7 +461,7 @@ export default function TeamMembersSection() {
 
           {/* Modal Formulaire membre */}
           <Dialog open={showForm} onOpenChange={setShowForm}>
-            <DialogContent className="sm:max-w-4xl bg-white/30 backdrop-blur rounded-lg shadow-lg p-6 max-h-[90vh] overflow-auto">
+            <DialogContent className="sm:max-w-4xl bg-white/30 backdrop-blur rounded-lg shadow-lg p-6 max-h-[90vh] overflow-auto hide-scrollbar">
               <DialogHeader>
                 <DialogTitle>
                   {formMode === 'add' ? 'Ajouter un membre' : 'Modifier le membre'}
