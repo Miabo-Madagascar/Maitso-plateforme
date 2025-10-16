@@ -243,7 +243,18 @@ const TemplatesSection: React.FC = () => {
 
   return (
     <div className="w-full h-screen p-3 sm:p-4 bg-white/30 backdrop-blur-xl border border-white/30 shadow-lg text-gray-900 flex flex-col">
-      <div className="flex-1 overflow-auto">
+      {/* Ajout CSS local pour cacher la scrollbar tout en conservant le scroll */}
+      <style>{`
+        .hide-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;     /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none; /* WebKit */
+        }
+      `}</style>
+
+      <div className="flex-1 overflow-auto hide-scrollbar">
         <div className="max-w-7xl mx-auto space-y-6">
           
           {/* Header */}
@@ -425,7 +436,7 @@ const TemplatesSection: React.FC = () => {
           {/* Modales */}
           {modalContent.type && (
             <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-auto relative">
+              <div className="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-6 w-full max-w-2xl max-h-[90vh] overflow-auto hide-scrollbar relative">
                 <button
                   onClick={closeModal}
                   className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 transition"
