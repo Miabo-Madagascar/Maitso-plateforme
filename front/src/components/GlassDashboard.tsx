@@ -2,6 +2,7 @@
 import { GlassMetricCard } from "./GlassMetricCard";
 import { GlassAlertItem } from "./GlassAlertItem";
 import { DashboardHeader } from "./DashboardHeader";
+import ChatAssistant from "./ChatAssistant"; // ← AJOUTEZ CET IMPORT
 
 
 // Types & données
@@ -876,6 +877,7 @@ export function GlassDashboard() {
             </div>
           </Glass>
         </div>
+<ChatAssistant />
       </div>
     </div>
   );
