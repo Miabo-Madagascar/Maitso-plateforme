@@ -401,14 +401,14 @@ const SupportTechniqueSection: React.FC<SupportTechniqueSectionProps> = ({
                 <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-green-600" />
                   <div>
-                    <div className="font-medium">+33 1 23 45 67 89</div>
+                    <div className="font-medium">+261 34 09 241 65</div>
                     <div className="text-sm text-gray-600">Support technique</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-purple-600" />
                   <div>
-                    <div className="font-medium">support@capteurs.com</div>
+                    <div className="font-medium">maitso.madagascar@outlook.com</div>
                     <div className="text-sm text-gray-600">Email support</div>
                   </div>
                 </div>
