@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { RefreshCcw, Edit, CreditCard, AlertTriangle, CheckCircle, Pause, Play, History, Bell, Euro } from "lucide-react";
+import { RefreshCcw, Edit, CreditCard, AlertTriangle, CheckCircle, Pause, Play, History, Bell, Euro, Wrench, Settings, Brain, Monitor, Users, TrendingUp, Award } from "lucide-react";
 
 interface BillingItem {
   id: string;
@@ -16,6 +16,8 @@ interface BillingItem {
   totalSensors: number;
   dataTransfer: string;
   supportLevel: "Basic" | "Premium" | "Enterprise";
+  type: "capteur" | "service";
+  description?: string;
   paymentHistory: {
     date: string;
     amount: number;
@@ -40,6 +42,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 5,
     dataTransfer: "10 GB",
     supportLevel: "Premium",
+    type: "capteur",
     paymentHistory: [
       { date: "15 Oct 2024", amount: 29.99, status: "Payé" },
       { date: "15 Sep 2024", amount: 29.99, status: "Payé" },
@@ -61,6 +64,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 3,
     dataTransfer: "5 GB",
     supportLevel: "Basic",
+    type: "capteur",
     paymentHistory: [
       { date: "10 Oct 2024", amount: 19.99, status: "Échoué" },
       { date: "10 Sep 2024", amount: 19.99, status: "Payé" }
@@ -81,6 +85,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 10,
     dataTransfer: "100 GB",
     supportLevel: "Enterprise",
+    type: "capteur",
     paymentHistory: [
       { date: "20 Déc 2023", amount: 299.99, status: "Payé" }
     ]
@@ -100,6 +105,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 2,
     dataTransfer: "15 GB",
     supportLevel: "Premium",
+    type: "capteur",
     paymentHistory: [
       { date: "25 Sep 2024", amount: 39.99, status: "Payé" },
       { date: "25 Aoû 2024", amount: 39.99, status: "Payé" }
@@ -120,6 +126,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 4,
     dataTransfer: "8 GB",
     supportLevel: "Basic",
+    type: "capteur",
     paymentHistory: [
       { date: "01 Oct 2024", amount: 24.99, status: "Échoué" },
       { date: "01 Sep 2024", amount: 24.99, status: "Payé" }
@@ -140,6 +147,7 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 8,
     dataTransfer: "50 GB",
     supportLevel: "Premium",
+    type: "capteur",
     paymentHistory: [
       { date: "05 Jan 2024", amount: 179.99, status: "Payé" }
     ]
@@ -159,12 +167,150 @@ const SENSOR_SUBSCRIPTIONS: BillingItem[] = [
     totalSensors: 6,
     dataTransfer: "25 GB",
     supportLevel: "Enterprise",
+    type: "capteur",
     paymentHistory: [
       { date: "30 Oct 2024", amount: 49.99, status: "En attente" },
       { date: "30 Sep 2024", amount: 49.99, status: "Payé" }
     ]
   }
 ];
+
+// Données pour les 6 services
+const SERVICE_SUBSCRIPTIONS: BillingItem[] = [
+  {
+    id: "SUB-FAB-008",
+    service: "Fabrication Capteur",
+    sensorType: "Service",
+    invoice: "INV-2024-008",
+    status: "Actif",
+    amount: 199.99,
+    billingPeriod: "Annuel",
+    nextDue: "20 Déc 2024",
+    method: "Virement bancaire",
+    autoRenewal: true,
+    daysUntilExpiry: 65,
+    totalSensors: 0,
+    dataTransfer: "N/A",
+    supportLevel: "Enterprise",
+    type: "service",
+    description: "Service complet de fabrication de capteurs personnalisés",
+    paymentHistory: [
+      { date: "20 Déc 2023", amount: 199.99, status: "Payé" }
+    ]
+  },
+  {
+    id: "SUB-IA-009",
+    service: "Analyse IA",
+    sensorType: "Service",
+    invoice: "INV-2024-009",
+    status: "Actif",
+    amount: 89.99,
+    billingPeriod: "Mensuel",
+    nextDue: "25 Nov 2024",
+    method: "Carte bancaire ****5678",
+    autoRenewal: true,
+    daysUntilExpiry: 40,
+    totalSensors: 0,
+    dataTransfer: "Illimité",
+    supportLevel: "Premium",
+    type: "service",
+    description: "Intelligence artificielle avancée pour l'analyse des données",
+    paymentHistory: [
+      { date: "25 Oct 2024", amount: 89.99, status: "Payé" },
+      { date: "25 Sep 2024", amount: 89.99, status: "Payé" }
+    ]
+  },
+  {
+    id: "SUB-MAITSO-010",
+    service: "Plateforme MAITSO",
+    sensorType: "Service",
+    invoice: "INV-2024-010",
+    status: "Actif",
+    amount: 49.99,
+    billingPeriod: "Mensuel",
+    nextDue: "30 Nov 2024",
+    method: "PayPal ****@company.com",
+    autoRenewal: true,
+    daysUntilExpiry: 45,
+    totalSensors: 0,
+    dataTransfer: "50 GB",
+    supportLevel: "Premium",
+    type: "service",
+    description: "Accès complet à la plateforme de gestion MAITSO",
+    paymentHistory: [
+      { date: "30 Oct 2024", amount: 49.99, status: "Payé" },
+      { date: "30 Sep 2024", amount: 49.99, status: "Payé" }
+    ]
+  },
+  {
+    id: "SUB-PART-011",
+    service: "Mise en relation Partenaires",
+    sensorType: "Service",
+    invoice: "INV-2024-011",
+    status: "En attente",
+    amount: 25.99,
+    billingPeriod: "Mensuel",
+    nextDue: "15 Nov 2024",
+    method: "Carte bancaire ****9999",
+    autoRenewal: false,
+    daysUntilExpiry: 30,
+    totalSensors: 0,
+    dataTransfer: "N/A",
+    supportLevel: "Basic",
+    type: "service",
+    description: "Réseau de partenaires industriels et commerciaux",
+    paymentHistory: [
+      { date: "15 Oct 2024", amount: 25.99, status: "En attente" },
+      { date: "15 Sep 2024", amount: 25.99, status: "Payé" }
+    ]
+  },
+  {
+    id: "SUB-SUIVI-012",
+    service: "Suivi Avancé",
+    sensorType: "Service",
+    invoice: "INV-2024-012",
+    status: "Actif",
+    amount: 39.99,
+    billingPeriod: "Mensuel",
+    nextDue: "10 Nov 2024",
+    method: "Virement bancaire",
+    autoRenewal: true,
+    daysUntilExpiry: 25,
+    totalSensors: 0,
+    dataTransfer: "25 GB",
+    supportLevel: "Premium",
+    type: "service",
+    description: "Monitoring et suivi en temps réel de vos équipements",
+    paymentHistory: [
+      { date: "10 Oct 2024", amount: 39.99, status: "Payé" },
+      { date: "10 Sep 2024", amount: 39.99, status: "Payé" }
+    ]
+  },
+  {
+    id: "SUB-RSE-013",
+    service: "Certificat RSE",
+    sensorType: "Service",
+    invoice: "INV-2024-013",
+    status: "Actif",
+    amount: 299.99,
+    billingPeriod: "Annuel",
+    nextDue: "01 Jan 2025",
+    method: "Carte bancaire ****7777",
+    autoRenewal: true,
+    daysUntilExpiry: 77,
+    totalSensors: 0,
+    dataTransfer: "N/A",
+    supportLevel: "Enterprise",
+    type: "service",
+    description: "Certification RSE complète avec audit et rapport",
+    paymentHistory: [
+      { date: "01 Jan 2024", amount: 299.99, status: "Payé" }
+    ]
+  }
+];
+
+// Combiner tous les abonnements
+const ALL_SUBSCRIPTIONS = [...SENSOR_SUBSCRIPTIONS, ...SERVICE_SUBSCRIPTIONS];
 
 const AbonnementsSection: React.FC = () => {
   const [expandedItem, setExpandedItem] = useState<{
@@ -199,6 +345,16 @@ const AbonnementsSection: React.FC = () => {
     }
   };
 
+  const getServiceIcon = (service: string) => {
+    if (service.includes("Fabrication")) return <Wrench className="w-5 h-5" />;
+    if (service.includes("IA")) return <Brain className="w-5 h-5" />;
+    if (service.includes("MAITSO")) return <Monitor className="w-5 h-5" />;
+    if (service.includes("Partenaires")) return <Users className="w-5 h-5" />;
+    if (service.includes("Suivi")) return <TrendingUp className="w-5 h-5" />;
+    if (service.includes("RSE")) return <Award className="w-5 h-5" />;
+    return <Settings className="w-5 h-5" />;
+  };
+
   const getUrgencyIndicator = (daysUntil: number) => {
     if (daysUntil < 0) return "🔴";
     if (daysUntil <= 7) return "🟠";
@@ -207,22 +363,266 @@ const AbonnementsSection: React.FC = () => {
   };
 
   const handlePayment = (subscriptionId: string) => {
-    // Simuler le traitement du paiement
     console.log(`Traitement du paiement pour ${subscriptionId}`, paymentData);
     setExpandedItem(null);
-    // Ici vous ajouteriez la logique de paiement réelle
+  };
+
+  const renderSubscriptionCard = (subscription: BillingItem, index: number) => {
+    const isOpen = expandedItem?.index === index;
+    const action = expandedItem?.action;
+
+    return (
+      <div
+        key={subscription.id}
+        className="p-6 bg-white/30 backdrop-blur border border-white/30 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+      >
+        {/* Header */}
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              {subscription.type === "service" && getServiceIcon(subscription.service)}
+              <h3 className="text-lg font-semibold">{subscription.service}</h3>
+              <span className="text-lg">{getUrgencyIndicator(subscription.daysUntilExpiry)}</span>
+            </div>
+            <p className="text-sm text-gray-500">{subscription.invoice}</p>
+            {subscription.description && (
+              <p className="text-xs text-gray-600 mt-1">{subscription.description}</p>
+            )}
+            <div className="flex gap-2 mt-2">
+              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(subscription.status)}`}>
+                {subscription.status}
+              </span>
+              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getSupportColor(subscription.supportLevel)}`}>
+                {subscription.supportLevel}
+              </span>
+              <span className={`px-2 py-1 rounded-full text-xs font-semibold ${subscription.type === "service" ? "bg-indigo-100 text-indigo-800" : "bg-cyan-100 text-cyan-800"}`}>
+                {subscription.type === "service" ? "Service" : "Capteur"}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Détails de l'abonnement */}
+        <div className="mb-4 space-y-2">
+          <p className="text-2xl font-extrabold text-indigo-600">
+            {subscription.amount}€
+            <span className="text-sm font-medium text-gray-500">
+              /{subscription.billingPeriod === "Mensuel" ? "mois" : "an"}
+            </span>
+          </p>
+          <div className="text-sm text-gray-600 space-y-1">
+            <p>📅 Prochain paiement: <span className="font-medium">{subscription.nextDue}</span></p>
+            <p>🔄 Renouvellement auto: <span className={subscription.autoRenewal ? "text-green-600" : "text-red-600"}>{subscription.autoRenewal ? "Activé" : "Désactivé"}</span></p>
+            {subscription.type === "capteur" ? (
+              <p>📊 Capteurs: {subscription.totalSensors} • Data: {subscription.dataTransfer}</p>
+            ) : (
+              <p>📊 Data: {subscription.dataTransfer}</p>
+            )}
+            <p>💳 {subscription.method}</p>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="grid grid-cols-2 gap-2 mb-3">
+          <button
+            onClick={() => setExpandedItem({ index, action: "payment" })}
+            className="flex items-center justify-center gap-1 px-3 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition text-sm"
+            disabled={subscription.status === "Actif" && subscription.daysUntilExpiry > 7}
+          >
+            <CreditCard className="w-4 h-4" />
+            Payer
+          </button>
+          <button
+            onClick={() => setExpandedItem({ index, action: "edit" })}
+            className="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition text-sm"
+          >
+            <Edit className="w-4 h-4" />
+            Modifier
+          </button>
+          <button
+            onClick={() => setExpandedItem({ index, action: "history" })}
+            className="flex items-center justify-center gap-1 px-3 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition text-sm"
+          >
+            <History className="w-4 h-4" />
+            Historique
+          </button>
+          <button
+            onClick={() => setExpandedItem({ index, action: subscription.status === "Suspendu" ? "renew" : "suspend" })}
+            className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg shadow-md transition text-sm ${
+              subscription.status === "Suspendu" 
+                ? "bg-green-600 text-white hover:bg-green-700" 
+                : "bg-gray-600 text-white hover:bg-gray-700"
+            }`}
+          >
+            {subscription.status === "Suspendu" ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
+            {subscription.status === "Suspendu" ? "Réactiver" : "Suspendre"}
+          </button>
+        </div>
+
+        {/* Contenu conditionnel */}
+        {isOpen && (
+          <div className="mt-4 p-4 bg-white/20 backdrop-blur rounded-lg border border-white/30">
+            {action === "payment" && (
+              <div>
+                <p className="font-semibold text-green-700 flex items-center gap-2 mb-3">
+                  <CreditCard className="w-4 h-4" />
+                  Confirmer le paiement
+                </p>
+                <div className="space-y-3">
+                  <input
+                    type="text"
+                    placeholder="Numéro de carte"
+                    value={paymentData.cardNumber}
+                    onChange={(e) => setPaymentData({...paymentData, cardNumber: e.target.value})}
+                    className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="text"
+                      placeholder="MM/AA"
+                      value={paymentData.expiryDate}
+                      onChange={(e) => setPaymentData({...paymentData, expiryDate: e.target.value})}
+                      className="p-2 border border-white/50 rounded bg-white/20 text-sm"
+                    />
+                    <input
+                      type="text"
+                      placeholder="CVV"
+                      value={paymentData.cvv}
+                      onChange={(e) => setPaymentData({...paymentData, cvv: e.target.value})}
+                      className="p-2 border border-white/50 rounded bg-white/20 text-sm"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Nom du titulaire"
+                    value={paymentData.holderName}
+                    onChange={(e) => setPaymentData({...paymentData, holderName: e.target.value})}
+                    className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm"
+                  />
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => handlePayment(subscription.id)}
+                      className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm"
+                    >
+                      Payer {subscription.amount}€
+                    </button>
+                    <button 
+                      onClick={() => setExpandedItem(null)}
+                      className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition text-sm"
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {action === "edit" && (
+              <div>
+                <p className="font-semibold text-blue-700 flex items-center gap-2 mb-3">
+                  <Edit className="w-4 h-4" />
+                  Modifier l'abonnement
+                </p>
+                <div className="space-y-3">
+                  <select className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm">
+                    <option>Mensuel - {subscription.amount}€</option>
+                    <option>Annuel - {(subscription.amount * 10).toFixed(2)}€ (2 mois gratuits)</option>
+                  </select>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input 
+                      type="checkbox" 
+                      defaultChecked={subscription.autoRenewal}
+                      className="rounded"
+                    />
+                    Renouvellement automatique
+                  </label>
+                  <select className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm">
+                    <option>Basic - 5GB</option>
+                    <option>Premium - 25GB</option>
+                    <option>Enterprise - 100GB</option>
+                  </select>
+                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm">
+                    Sauvegarder les modifications
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {action === "history" && (
+              <div>
+                <p className="font-semibold text-purple-700 flex items-center gap-2 mb-3">
+                  <History className="w-4 h-4" />
+                  Historique des paiements
+                </p>
+                <div className="space-y-2 max-h-40 overflow-y-auto hide-scrollbar">
+                  {subscription.paymentHistory.map((payment, idx) => (
+                    <div key={idx} className="flex justify-between items-center p-2 bg-white/10 rounded text-sm">
+                      <div>
+                        <p className="font-medium">{payment.date}</p>
+                        <p className="text-xs text-gray-600">{payment.amount}€</p>
+                      </div>
+                      <span className={`px-2 py-1 rounded text-xs ${
+                        payment.status === "Payé" ? "bg-green-100 text-green-800" :
+                        payment.status === "Échoué" ? "bg-red-100 text-red-800" :
+                        "bg-yellow-100 text-yellow-800"
+                      }`}>
+                        {payment.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {action === "suspend" && (
+              <div>
+                <p className="font-semibold text-gray-700 flex items-center gap-2 mb-3">
+                  <Pause className="w-4 h-4" />
+                  Suspendre l'abonnement
+                </p>
+                <p className="text-sm mb-3">Êtes-vous sûr de vouloir suspendre cet abonnement ? {subscription.type === "capteur" ? "Vos capteurs seront désactivés." : "Le service sera interrompu."}</p>
+                <div className="flex gap-2">
+                  <button className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm">
+                    Confirmer la suspension
+                  </button>
+                  <button 
+                    onClick={() => setExpandedItem(null)}
+                    className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition text-sm"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {action === "renew" && (
+              <div>
+                <p className="font-semibold text-green-700 flex items-center gap-2 mb-3">
+                  <RefreshCcw className="w-4 h-4" />
+                  Réactiver l'abonnement
+                </p>
+                <p className="text-sm mb-3">Réactivez votre abonnement pour reprendre {subscription.type === "capteur" ? "la surveillance de vos capteurs" : "l'utilisation du service"}.</p>
+                <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm">
+                  Réactiver maintenant
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
     <div className="w-full h-screen p-3 sm:p-4 bg-white/30 backdrop-blur-xl border border-white/30 shadow-lg text-gray-900 flex flex-col">
-      {/* Ajout CSS local pour cacher la scrollbar tout en conservant le scroll */}
+      {/* CSS local pour cacher la scrollbar */}
       <style>{`
         .hide-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;     /* Firefox */
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
         .hide-scrollbar::-webkit-scrollbar {
-          display: none; /* WebKit */
+          display: none;
         }
       `}</style>
 
@@ -234,9 +634,9 @@ const AbonnementsSection: React.FC = () => {
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight flex items-center gap-2">
                 <CreditCard className="w-8 h-8 text-blue-600" />
-                Abonnements Capteurs
+                Abonnements & Services
               </h2>
-              <p className="text-gray-600 mt-1">Gestion de vos 7 abonnements de capteurs IoT</p>
+              <p className="text-gray-600 mt-1">Gestion de vos 13 abonnements (7 capteurs + 6 services)</p>
             </div>
           </div>
 
@@ -248,7 +648,7 @@ const AbonnementsSection: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600">Actifs</p>
                   <p className="text-2xl font-bold">
-                    {SENSOR_SUBSCRIPTIONS.filter(s => s.status === "Actif").length}
+                    {ALL_SUBSCRIPTIONS.filter(s => s.status === "Actif").length}
                   </p>
                 </div>
               </div>
@@ -259,7 +659,7 @@ const AbonnementsSection: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600">À renouveler</p>
                   <p className="text-2xl font-bold text-orange-600">
-                    {SENSOR_SUBSCRIPTIONS.filter(s => s.daysUntilExpiry <= 7 && s.daysUntilExpiry > 0).length}
+                    {ALL_SUBSCRIPTIONS.filter(s => s.daysUntilExpiry <= 7 && s.daysUntilExpiry > 0).length}
                   </p>
                 </div>
               </div>
@@ -270,7 +670,7 @@ const AbonnementsSection: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600">Coût mensuel</p>
                   <p className="text-2xl font-bold text-blue-600">
-                    {SENSOR_SUBSCRIPTIONS.reduce((sum, s) => 
+                    {ALL_SUBSCRIPTIONS.reduce((sum, s) => 
                       sum + (s.billingPeriod === "Mensuel" ? s.amount : s.amount / 12), 0
                     ).toFixed(0)}€
                   </p>
@@ -283,249 +683,35 @@ const AbonnementsSection: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600">En retard</p>
                   <p className="text-2xl font-bold text-red-600">
-                    {SENSOR_SUBSCRIPTIONS.filter(s => s.daysUntilExpiry < 0).length}
+                    {ALL_SUBSCRIPTIONS.filter(s => s.daysUntilExpiry < 0).length}
                   </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Grille des abonnements */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SENSOR_SUBSCRIPTIONS.map((subscription, i) => {
-              const isOpen = expandedItem?.index === i;
-              const action = expandedItem?.action;
+          {/* Section Capteurs */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Settings className="w-6 h-6 text-cyan-600" />
+              <h3 className="text-2xl font-bold text-cyan-600">Abonnements Capteurs ({SENSOR_SUBSCRIPTIONS.length})</h3>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SENSOR_SUBSCRIPTIONS.map((subscription, i) => renderSubscriptionCard(subscription, i))}
+            </div>
+          </div>
 
-              return (
-                <div
-                  key={subscription.id}
-                  className="p-6 bg-white/30 backdrop-blur border border-white/30 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  {/* Header */}
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-lg font-semibold">{subscription.service}</h3>
-                        <span className="text-lg">{getUrgencyIndicator(subscription.daysUntilExpiry)}</span>
-                      </div>
-                      <p className="text-sm text-gray-500">{subscription.invoice}</p>
-                      <div className="flex gap-2 mt-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(subscription.status)}`}>
-                          {subscription.status}
-                        </span>
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getSupportColor(subscription.supportLevel)}`}>
-                          {subscription.supportLevel}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Détails de l'abonnement */}
-                  <div className="mb-4 space-y-2">
-                    <p className="text-2xl font-extrabold text-indigo-600">
-                      {subscription.amount}€
-                      <span className="text-sm font-medium text-gray-500">
-                        /{subscription.billingPeriod === "Mensuel" ? "mois" : "an"}
-                      </span>
-                    </p>
-                    <div className="text-sm text-gray-600 space-y-1">
-                      <p>📅 Prochain paiement: <span className="font-medium">{subscription.nextDue}</span></p>
-                      <p>🔄 Renouvellement auto: <span className={subscription.autoRenewal ? "text-green-600" : "text-red-600"}>{subscription.autoRenewal ? "Activé" : "Désactivé"}</span></p>
-                      <p>📊 Capteurs: {subscription.totalSensors} • Data: {subscription.dataTransfer}</p>
-                      <p>💳 {subscription.method}</p>
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="grid grid-cols-2 gap-2 mb-3">
-                    <button
-                      onClick={() => setExpandedItem({ index: i, action: "payment" })}
-                      className="flex items-center justify-center gap-1 px-3 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition text-sm"
-                      disabled={subscription.status === "Actif" && subscription.daysUntilExpiry > 7}
-                    >
-                      <CreditCard className="w-4 h-4" />
-                      Payer
-                    </button>
-                    <button
-                      onClick={() => setExpandedItem({ index: i, action: "edit" })}
-                      className="flex items-center justify-center gap-1 px-3 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition text-sm"
-                    >
-                      <Edit className="w-4 h-4" />
-                      Modifier
-                    </button>
-                    <button
-                      onClick={() => setExpandedItem({ index: i, action: "history" })}
-                      className="flex items-center justify-center gap-1 px-3 py-2 bg-purple-600 text-white rounded-lg shadow-md hover:bg-purple-700 transition text-sm"
-                    >
-                      <History className="w-4 h-4" />
-                      Historique
-                    </button>
-                    <button
-                      onClick={() => setExpandedItem({ index: i, action: subscription.status === "Suspendu" ? "renew" : "suspend" })}
-                      className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg shadow-md transition text-sm ${
-                        subscription.status === "Suspendu" 
-                          ? "bg-green-600 text-white hover:bg-green-700" 
-                          : "bg-gray-600 text-white hover:bg-gray-700"
-                      }`}
-                    >
-                      {subscription.status === "Suspendu" ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
-                      {subscription.status === "Suspendu" ? "Réactiver" : "Suspendre"}
-                    </button>
-                  </div>
-
-                  {/* Contenu conditionnel */}
-                  {isOpen && (
-                    <div className="mt-4 p-4 bg-white/20 backdrop-blur rounded-lg border border-white/30">
-                      {action === "payment" && (
-                        <div>
-                          <p className="font-semibold text-green-700 flex items-center gap-2 mb-3">
-                            <CreditCard className="w-4 h-4" />
-                            Confirmer le paiement
-                          </p>
-                          <div className="space-y-3">
-                            <input
-                              type="text"
-                              placeholder="Numéro de carte"
-                              value={paymentData.cardNumber}
-                              onChange={(e) => setPaymentData({...paymentData, cardNumber: e.target.value})}
-                              className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm"
-                            />
-                            <div className="grid grid-cols-2 gap-2">
-                              <input
-                                type="text"
-                                placeholder="MM/AA"
-                                value={paymentData.expiryDate}
-                                onChange={(e) => setPaymentData({...paymentData, expiryDate: e.target.value})}
-                                className="p-2 border border-white/50 rounded bg-white/20 text-sm"
-                              />
-                              <input
-                                type="text"
-                                placeholder="CVV"
-                                value={paymentData.cvv}
-                                onChange={(e) => setPaymentData({...paymentData, cvv: e.target.value})}
-                                className="p-2 border border-white/50 rounded bg-white/20 text-sm"
-                              />
-                            </div>
-                            <input
-                              type="text"
-                              placeholder="Nom du titulaire"
-                              value={paymentData.holderName}
-                              onChange={(e) => setPaymentData({...paymentData, holderName: e.target.value})}
-                              className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm"
-                            />
-                            <div className="flex gap-2">
-                              <button 
-                                onClick={() => handlePayment(subscription.id)}
-                                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm"
-                              >
-                                Payer {subscription.amount}€
-                              </button>
-                              <button 
-                                onClick={() => setExpandedItem(null)}
-                                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition text-sm"
-                              >
-                                Annuler
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {action === "edit" && (
-                        <div>
-                          <p className="font-semibold text-blue-700 flex items-center gap-2 mb-3">
-                            <Edit className="w-4 h-4" />
-                            Modifier l'abonnement
-                          </p>
-                          <div className="space-y-3">
-                            <select className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm">
-                              <option>Mensuel - {subscription.amount}€</option>
-                              <option>Annuel - {(subscription.amount * 10).toFixed(2)}€ (2 mois gratuits)</option>
-                            </select>
-                            <label className="flex items-center gap-2 text-sm">
-                              <input 
-                                type="checkbox" 
-                                defaultChecked={subscription.autoRenewal}
-                                className="rounded"
-                              />
-                              Renouvellement automatique
-                            </label>
-                            <select className="w-full p-2 border border-white/50 rounded bg-white/20 text-sm">
-                              <option>Basic - 5GB</option>
-                              <option>Premium - 25GB</option>
-                              <option>Enterprise - 100GB</option>
-                            </select>
-                            <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm">
-                              Sauvegarder les modifications
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
-                      {action === "history" && (
-                        <div>
-                          <p className="font-semibold text-purple-700 flex items-center gap-2 mb-3">
-                            <History className="w-4 h-4" />
-                            Historique des paiements
-                          </p>
-                          <div className="space-y-2 max-h-40 overflow-y-auto hide-scrollbar">
-                            {subscription.paymentHistory.map((payment, idx) => (
-                              <div key={idx} className="flex justify-between items-center p-2 bg-white/10 rounded text-sm">
-                                <div>
-                                  <p className="font-medium">{payment.date}</p>
-                                  <p className="text-xs text-gray-600">{payment.amount}€</p>
-                                </div>
-                                <span className={`px-2 py-1 rounded text-xs ${
-                                  payment.status === "Payé" ? "bg-green-100 text-green-800" :
-                                  payment.status === "Échoué" ? "bg-red-100 text-red-800" :
-                                  "bg-yellow-100 text-yellow-800"
-                                }`}>
-                                  {payment.status}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {action === "suspend" && (
-                        <div>
-                          <p className="font-semibold text-gray-700 flex items-center gap-2 mb-3">
-                            <Pause className="w-4 h-4" />
-                            Suspendre l'abonnement
-                          </p>
-                          <p className="text-sm mb-3">Êtes-vous sûr de vouloir suspendre cet abonnement ? Vos capteurs seront désactivés.</p>
-                          <div className="flex gap-2">
-                            <button className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm">
-                              Confirmer la suspension
-                            </button>
-                            <button 
-                              onClick={() => setExpandedItem(null)}
-                              className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition text-sm"
-                            >
-                              Annuler
-                            </button>
-                          </div>
-                        </div>
-                      )}
-
-                      {action === "renew" && (
-                        <div>
-                          <p className="font-semibold text-green-700 flex items-center gap-2 mb-3">
-                            <RefreshCcw className="w-4 h-4" />
-                            Réactiver l'abonnement
-                          </p>
-                          <p className="text-sm mb-3">Réactivez votre abonnement pour reprendre la surveillance de vos capteurs.</p>
-                          <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition text-sm">
-                            Réactiver maintenant
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+          {/* Section Services */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Brain className="w-6 h-6 text-indigo-600" />
+              <h3 className="text-2xl font-bold text-indigo-600">Abonnements Services ({SERVICE_SUBSCRIPTIONS.length})</h3>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SERVICE_SUBSCRIPTIONS.map((subscription, i) => 
+                renderSubscriptionCard(subscription, i + SENSOR_SUBSCRIPTIONS.length)
+              )}
+            </div>
           </div>
 
         </div>
