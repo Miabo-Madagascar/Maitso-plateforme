@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, FileText, Download, Eye, Edit, ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, FileText, Download, Eye, Edit, ChevronDown, ChevronUp, X } from "lucide-react";
 
 interface Document {
   name: string;
@@ -13,8 +13,7 @@ interface Document {
   suggestions?: string[];
 }
 
-// Liste enrichie des documents avec descriptions et suggestions contextuelles
-const DOCUMENTS: Document[] = [
+const DOCUMENTS_INITIAL: Document[] = [
   {
     name: "Certificat RSE 2024",
     type: "Certificat",
@@ -92,11 +91,52 @@ const DOCUMENTS: Document[] = [
   },
 ];
 
+type ActiveAction =
+  | null
+  | { type: "view"; index: number }
+  | { type: "download"; index: number }
+  | { type: "edit"; index: number }
+  | { type: "upload" };
+
 const SharedDocsSection: React.FC = () => {
+  const [documents, setDocuments] = useState<Document[]>(DOCUMENTS_INITIAL);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [activeAction, setActiveAction] = useState<ActiveAction>(null);
+  const [editName, setEditName] = useState<string>("");
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const startView = (index: number) => {
+    setActiveAction({ type: "view", index });
+  };
+
+  const startDownload = (index: number) => {
+    setActiveAction({ type: "download", index });
+  };
+
+  const startEdit = (index: number) => {
+    setEditName(documents[index].name);
+    setActiveAction({ type: "edit", index });
+  };
+
+  const handleSaveEdit = () => {
+    if (activeAction?.type === "edit" && activeAction.index !== undefined) {
+      const updatedDocs = documents.map((d, i) =>
+        i === activeAction.index ? { ...d, name: editName.trim() === "" ? d.name : editName.trim() } : d
+      );
+      setDocuments(updatedDocs);
+      setActiveAction(null);
+    }
+  };
+
+  const cancelAction = () => {
+    setActiveAction(null);
+  };
+
+  const handleUpload = () => {
+    setActiveAction({ type: "upload" });
   };
 
   return (
@@ -105,7 +145,11 @@ const SharedDocsSection: React.FC = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <h2 className="text-3xl font-extrabold tracking-tight">Documents partagés</h2>
         <div className="flex gap-4 w-full sm:w-auto">
-          <button className="flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-2xl shadow-md hover:brightness-110 transition focus:outline-none">
+          <button 
+            onClick={handleUpload}
+            className="flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-indigo-600 to-purple-600 text-white rounded-2xl shadow-md hover:brightness-110 transition focus:outline-none"
+            aria-label="Uploader un nouveau document"
+          >
             <Plus className="w-5 h-5" />
             Uploader
           </button>
@@ -119,12 +163,11 @@ const SharedDocsSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Liste documents */}
       <div className="grid gap-4">
-        {DOCUMENTS.map((doc, i) => (
+        {documents.map((doc, i) => (
           <div
             key={i}
-            className="flex flex-col border border-white/40 p-6 rounded-2xl bg-white/20 backdrop-blur-md shadow-sm hover:shadow-lg transition cursor-pointer"
+            className="flex flex-col border border-white/40 p-6 rounded-2xl bg-white/20 backdrop-blur-md shadow-sm hover:shadow-lg transition"
             aria-expanded={expandedIndex === i}
           >
             <div className="flex justify-between items-center">
@@ -154,16 +197,32 @@ const SharedDocsSection: React.FC = () => {
                   className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-indigo-600 shadow-sm focus:outline-none"
                   onClick={() => toggleExpand(i)}
                   aria-label={expandedIndex === i ? "Réduire détails" : "Afficher détails"}
+                  title={expandedIndex === i ? "Réduire détails" : "Afficher détails"}
                 >
                   {expandedIndex === i ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                 </button>
-                <button className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-indigo-600 shadow-sm focus:outline-none">
+                <button 
+                  className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-indigo-600 shadow-sm focus:outline-none"
+                  onClick={() => startView(i)}
+                  aria-label="Prévisualiser le document"
+                  title="Prévisualiser"
+                >
                   <Eye className="w-5 h-5" />
                 </button>
-                <button className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-green-600 shadow-sm focus:outline-none">
+                <button 
+                  className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-green-600 shadow-sm focus:outline-none"
+                  onClick={() => startDownload(i)}
+                  aria-label="Télécharger le document"
+                  title="Télécharger"
+                >
                   <Download className="w-5 h-5" />
                 </button>
-                <button className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-gray-600 shadow-sm focus:outline-none">
+                <button 
+                  className="p-3 rounded-lg bg-white/30 backdrop-blur-md hover:bg-white/50 transition text-gray-600 shadow-sm focus:outline-none"
+                  onClick={() => startEdit(i)}
+                  aria-label="Modifier le document"
+                  title="Modifier"
+                >
                   <Edit className="w-5 h-5" />
                 </button>
               </div>
@@ -188,6 +247,140 @@ const SharedDocsSection: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Panneaux d'actions intégrés */}
+
+      {/* Prévisualisation */}
+      {activeAction?.type === "view" && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-lg max-w-xl w-full p-6 relative">
+            <button
+              onClick={cancelAction}
+              className="absolute top-3 right-3 rounded-full p-1 text-gray-600 hover:text-gray-900 focus:outline-none"
+              aria-label="Fermer la prévisualisation"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-xl font-bold mb-4">Prévisualisation : {documents[activeAction.index].name}</h3>
+            <div className="text-gray-700 whitespace-pre-line border border-gray-200 rounded p-3 max-h-64 overflow-y-auto bg-gray-50">
+              <p>{documents[activeAction.index].description}</p>
+              {documents[activeAction.index].suggestions && (
+                <>
+                  <h4 className="font-semibold mt-4 mb-2">Suggestions</h4>
+                  <ul className="list-disc list-inside space-y-1">
+                    {documents[activeAction.index].suggestions!.map((s, i) => (
+                      <li key={i}>{s}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+              <p className="mt-4 italic text-sm text-gray-500">Contenu simulé pour prévisualisation.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Téléchargement simulé */}
+      {activeAction?.type === "download" && (
+        <div className="fixed inset-0 bg-black bg-opacity-20 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative text-center">
+            <button
+              onClick={cancelAction}
+              className="absolute top-3 right-3 rounded-full p-1 text-gray-600 hover:text-gray-900 focus:outline-none"
+              aria-label="Fermer la fenêtre de téléchargement"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-lg font-semibold mb-4">Téléchargement</h3>
+            <p className="mb-6">Le document <strong>{documents[activeAction.index].name}</strong> est prêt à être téléchargé.</p>
+            <button
+              onClick={() => {
+                // Logique de téléchargement ici, simulée
+                alert(`Téléchargement lancé pour ${documents[activeAction.index].name}`);
+                cancelAction();
+              }}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+            >
+              Télécharger maintenant
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Edition inline dans un panneau */}
+      {activeAction?.type === "edit" && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative">
+            <button
+              onClick={cancelAction}
+              className="absolute top-3 right-3 rounded-full p-1 text-gray-600 hover:text-gray-900 focus:outline-none"
+              aria-label="Annuler la modification"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-xl font-bold mb-4">Modifier le nom du document</h3>
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              aria-label="Nom du document"
+            />
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={cancelAction}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={handleSaveEdit}
+                className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upload simulé */}
+      {activeAction?.type === "upload" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-lg max-w-lg w-full p-6 relative">
+            <button
+              onClick={cancelAction}
+              className="absolute top-3 right-3 rounded-full p-1 text-gray-600 hover:text-gray-900 focus:outline-none"
+              aria-label="Fermer la fenêtre d'upload"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            <h3 className="text-xl font-bold mb-4">Uploader un nouveau document</h3>
+            <input
+              type="file"
+              className="w-full mb-6"
+              aria-label="Choisir un fichier à uploader"
+            />
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={cancelAction}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={() => {
+                  alert("Fonction d'upload à implémenter.");
+                  cancelAction();
+                }}
+                className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+              >
+                Uploader
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
