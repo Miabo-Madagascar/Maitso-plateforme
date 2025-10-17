@@ -108,9 +108,9 @@ export function GlassSidebar({ activeItem, onItemClick }: GlassSidebarProps) {
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: Home },
     { id: "team", label: "Team", icon: Users },
-    { id: "calendar", label: "Calendar", icon: Calendar },
-    { id: "documents", label: "Documents", icon: FileText },
-    { id: "billing", label: "Billing", icon: CreditCard },
+    { id: "calendar", label: "Plan’Event", icon: Calendar },
+    { id: "documents", label: "Modudoc", icon: FileText },
+    { id: "billing", label: "AbofactX", icon: CreditCard },
   ];
 
   const supportItems = [
