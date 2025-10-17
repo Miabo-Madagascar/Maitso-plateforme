@@ -526,7 +526,7 @@ const TemplatesSection: React.FC = () => {
                         </div>
                       </div>
                       <button className="w-full py-3 bg-green-600 text-white font-semibold rounded-xl shadow-lg hover:bg-green-700 transition">
-                        Démarrer la maintenance
+                        Demander la maintenance
                       </button>
                     </div>
                   </div>
