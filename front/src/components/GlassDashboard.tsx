@@ -3,14 +3,13 @@ import { GlassMetricCard } from "./GlassMetricCard";
 import { GlassAlertItem } from "./GlassAlertItem";
 import { DashboardHeader } from "./DashboardHeader";
 import ChatAssistant from "./ChatAssistant"; // ← AJOUTEZ CET IMPORT
-
+import { jsPDF } from "jspdf";
 
 // Types & données
 import type { Period, SensorKey, ActivityDataItem, TooltipProps } from "../data/types";
 import { mockData, defaultThresholds, mockSensors } from "../data/mockData";
 import { sensorMeta } from "../data/sensorConfig";
 import { classNames, Chip, SectionTitle } from "../data/utils";
-
 
 // Composants manquants à créer
 import { ChartTooltip } from "./ChartTooltip";
@@ -28,16 +27,17 @@ import {
   TrendingDown,
   TrendingUp,
   Wifi,
-  Wrench,
   X,
   MessageCircle,
   SunIcon,
-  Lightbulb,
   RotateCcw,
   Eye,
-  Zap,
-  Brain,
-  AlertTriangle
+
+  TreePine,
+  Recycle,
+  Wind,
+  Droplets,
+  FileText
 } from "lucide-react";
 import {
   AreaChart,
@@ -52,9 +52,7 @@ import {
   YAxis
 } from "recharts";
 
-
 import { useEffect, useState } from "react";
-
 
 const Glass = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div
@@ -67,7 +65,6 @@ const Glass = ({ children, className = "" }: { children: React.ReactNode; classN
   </div>
 );
 
-
 export function GlassDashboard() {
   const [selectedPeriod, setSelectedPeriod] = useState<Period>("month");
   const [selectedMetric, setSelectedMetric] = useState<SensorKey>("temperature");
@@ -76,11 +73,9 @@ export function GlassDashboard() {
   const [thresholds, setThresholds] = useState(defaultThresholds);
   const [chatOpen, setChatOpen] = useState(false);
 
-
   useEffect(() => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
-
 
   // Données mockées pour les capteurs du projet
   const dht22Data = [
@@ -139,11 +134,9 @@ export function GlassDashboard() {
     { value: 380 }
   ];
 
-
   // Aliases pour jeux de données manquants (utilisation des jeux existants pour compilation)
   const mq9Data = mq135Data;        // MQ-9 reuse MQ-135 sample data
   const gyBme280Data = dht22Data;  // GY-BME280 reuse DHT22 sample data
-
 
   // Activité mensuelle
   const activityData: ActivityDataItem[] = [
@@ -160,7 +153,6 @@ export function GlassDashboard() {
     { month: "NOV", value: 350, growth: 9 },
     { month: "DEC", value: 380, growth: 9 }
   ];
-
 
   // Dernières valeurs pour recommandations (fonction générique typée)
   function lastValue<T extends { v?: number }>(arr?: T[] | readonly T[]) {
@@ -179,25 +171,21 @@ export function GlassDashboard() {
     o3: lastValue(mockData.o3)?.v ?? 0
   };
 
-
   // Calculs pour synthèse rapide
   const activesSensors = mockSensors.filter((s) => s.online).length;
   const totalSensors = mockSensors.length;
   const connectionPercentage = Math.round((activesSensors / totalSensors) * 100);
-
 
   // KPIs calculs
   const maxValue = Math.max(...activityData.map((d) => d.value));
   const avgValue = Math.round(activityData.reduce((sum, d) => sum + d.value, 0) / activityData.length);
   const avgGrowth = Math.round(activityData.reduce((sum, d) => sum + d.growth, 0) / activityData.length);
 
-
   const getTrendIcon = (value: number) => {
     if (value > 0) return <TrendingUp className="w-4 h-4 text-green-500" />;
     if (value < 0) return <TrendingDown className="w-4 h-4 text-red-500" />;
     return <Minus className="w-4 h-4 text-gray-500" />;
   };
-
 
   const getPeriodTitle = () => {
     switch (selectedPeriod) {
@@ -210,14 +198,11 @@ export function GlassDashboard() {
     }
   };
 
-
   const getMetricTitle = () => {
     return sensorMeta[selectedMetric as keyof typeof sensorMeta].label;
   };
 
-
   const bgGrad = "bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50";
-
 
   // Tooltip typé
   const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
@@ -232,7 +217,74 @@ export function GlassDashboard() {
     return null;
   };
 
+ function navigateToBilling(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+  event.preventDefault();
 
+  // Données à inclure dans le PDF
+  const recommendations = [
+    { title: "Réduire pollution sonore", desc: "KY-038 détecte +15% bruit - Actions nécessaires", priority: "URGENT", impact: "Élevé" },
+    { title: "Optimiser consommation eau", desc: "YF-S401 : débit excessif -15% possible", priority: "MOYEN", impact: "Moyen" },
+    { title: "Améliorer qualité air", desc: "MQ-135 : taux polluants élevés - ventilation", priority: "URGENT", impact: "Élevé" },
+    { title: "Réduire émissions CO₂", desc: "Données capteurs suggèrent économie énergie", priority: "MOYEN", impact: "Élevé" },
+    { title: "Zone de confort thermique", desc: "DHT22 : optimiser chauffage -8°C possible", priority: "FAIBLE", impact: "Moyen" },
+    { title: "Certification environnementale", desc: "Données conformes ISO 14001 - validation", priority: "FAIBLE", impact: "Faible" },
+    { title: "Surveillance vibrations", desc: "801S : réduire nuisances mécaniques", priority: "FAIBLE", impact: "Faible" }
+  ];
+
+  // Création du document PDF
+  const doc = new jsPDF();
+  let y = 20;
+
+  // --- En-tête ---
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("🌿 Rapport - Démarche Verte", 20, y);
+  y += 10;
+
+  doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.text("Label : ÉCORESPONSABLE", 20, y);
+  y += 8;
+  doc.text("Impact environnemental :", 20, y);
+  doc.setTextColor(0, 150, 0);
+  doc.text("Réduction CO₂ potentielle : -23% ce mois", 75, y);
+  doc.setTextColor(0, 0, 0);
+  y += 10;
+
+  // --- Titre du tableau ---
+  doc.setFont("helvetica", "bold");
+  doc.text("Recommandations :", 20, y);
+  y += 8;
+  doc.setFont("helvetica", "normal");
+
+  // --- Boucle sur les recommandations ---
+  recommendations.forEach((rec) => {
+    if (y > 270) { // ajout d’une nouvelle page si nécessaire
+      doc.addPage();
+      y = 20;
+    }
+
+    doc.setFont("helvetica", "bold");
+    doc.text(`• ${rec.title}`, 25, y);
+    y += 6;
+
+    doc.setFont("helvetica", "normal");
+    doc.text(`   Description : ${rec.desc}`, 25, y);
+    y += 6;
+    doc.text(`   Priorité : ${rec.priority}`, 25, y);
+    y += 5;
+    doc.text(`   Impact : ${rec.impact}`, 25, y);
+    y += 8;
+  });
+
+  // --- Pied de page ---
+  doc.setFontSize(10);
+  doc.setTextColor(100, 100, 100);
+  doc.text(`Généré le : ${new Date().toLocaleString()}`, 20, 285);
+
+  // Téléchargement du PDF
+  doc.save("rapport_demarche_verte.pdf");
+}
   return (
     <div className={classNames("min-h-screen", bgGrad)}>
       {/* Background */}
@@ -242,13 +294,11 @@ export function GlassDashboard() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_40%_40%,rgba(120,255,198,0.1),transparent_50%)]"></div>
       </div>
 
-
       {/* Content scrollable */}
       <div className="relative z-10 p-3 space-y-4 overflow-y-auto max-h-screen scrollbar-hide">
         <DashboardHeader />
 
-
-        {/* Capteurs conformes au PDF */}
+        {/* LIGNE 1 : Les 7 capteurs */}
         <div className="grid grid-cols-2 lg:grid-cols-7 gap-3">
           <GlassMetricCard
             title="DHT22 (Temp & Hum)"
@@ -260,7 +310,6 @@ export function GlassDashboard() {
             icon={<BarChart className="w-3 h-3 text-white" />}
             small
           />
-
 
           <GlassMetricCard
             title="MQ-135 (Gaz polluants)"
@@ -274,7 +323,6 @@ export function GlassDashboard() {
             small
           />
 
-
           <GlassMetricCard
             title="801S (Vibration)"
             value="56 Hz"
@@ -286,7 +334,6 @@ export function GlassDashboard() {
             icon={<Bell className="w-3 h-3 text-white" />}
             small
           />
-
 
           <GlassMetricCard
             title="YF-S401 (Débit eau)"
@@ -300,7 +347,6 @@ export function GlassDashboard() {
             small
           />
 
-
           <GlassMetricCard
             title="GY-BME280 (Pression)"
             value="1012 hPa"
@@ -313,7 +359,6 @@ export function GlassDashboard() {
             small
           />
 
-
           <GlassMetricCard
             title="MQ-9 (Gaz toxiques)"
             value="65 ppm"
@@ -324,7 +369,6 @@ export function GlassDashboard() {
             icon={<Calendar className="w-3 h-3 text-white" />}
             small
           />
-
 
           <GlassMetricCard
             title="KY-038 (Bruit)"
@@ -337,94 +381,154 @@ export function GlassDashboard() {
             icon={<SunIcon className="w-3 h-3 text-white" />}
             small
           />
-
-
-          {/* Bouton flottant pour ouvrir/fermer l'assistant chat */}
-          <button
-            onClick={() => setChatOpen(!chatOpen)}
-            aria-label="Ouvrir l'assistant chat"
-            className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg text-white hover:brightness-110 transition"
-          >
-            {chatOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
-          </button>
-
-
-          {/* Fenêtre assistant chat */}
-          {chatOpen && (
-            <div className="fixed bottom-20 right-6 z-40 w-80 h-96 rounded-2xl border border-indigo-300 bg-gradient-to-br from-indigo-50 via-purple-50 to-white/80 backdrop-blur-xl shadow-2xl flex flex-col animate-fadeIn">
-              <div className="flex items-center justify-between p-4 border-b border-indigo-200 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-t-2xl">
-                <h4 className="text-indigo-700 font-bold text-base tracking-wide flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-indigo-500" /> Assistant Chat
-                </h4>
-                <button
-                  onClick={() => setChatOpen(false)}
-                  aria-label="Fermer le chat"
-                  className="text-indigo-500 hover:text-indigo-700 transition"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-              <div className="flex-1 p-4 overflow-y-auto text-gray-800 space-y-2 custom-scrollbar">
-                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
-                  Bonjour 👋 ! Je suis votre assistant. Comment puis-je aider ?
-                </div>
-                <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
-                  Je veux voir les alertes récentes.
-                </div>
-                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
-                  Voici les 6 alertes les plus récentes affichées à gauche du dashboard.
-                </div>
-                <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
-                  Merci ! Et comment exporter les données ?
-                </div>
-                <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
-                  Cliquez sur l'icône PDF dans la section documentation pour exporter vos données.
-                </div>
-              </div>
-              <div className="p-4 border-t border-indigo-200 bg-white/60 rounded-b-2xl flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="Tapez votre message..."
-                  className="flex-1 rounded-lg border border-indigo-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/90 shadow"
-                />
-                <button
-                  aria-label="Envoyer"
-                  className="p-2 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md hover:scale-105 transition"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="w-5 h-5"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 20l16-8-16-8v6l12 2-12 2v6z" />
-                  </svg>
-                </button>
-              </div>
-              <style>{`
-                .animate-fadeIn {
-                  animation: fadeIn 0.3s ease-out;
-                }
-                @keyframes fadeIn {
-                  from { opacity: 0; transform: translateY(10px); }
-                  to { opacity: 1; transform: translateY(0); }
-                }
-                .custom-scrollbar::-webkit-scrollbar {
-                  width: 6px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                  background: rgba(99, 102, 241, 0.5);
-                  border-radius: 10px;
-                }
-              `}</style>
-            </div>
-          )}
         </div>
 
+        {/* LIGNE 2 : Alertes, état des capteurs et recommandations */}
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Alertes - Hauteur fixe identique */}
+          <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Bell className="w-5 h-5 text-red-500 animate-pulse" />
+                <h3 className="text-lg font-semibold text-gray-900">Alertes</h3>
+              </div>
+              <span className="px-2 py-1 rounded-full bg-red-500/10 text-red-600 text-xs font-medium border border-red-200">7</span>
+            </div>
+            <div className="flex-1 space-y-2 overflow-y-auto">
+              <GlassAlertItem title="YF-S401 (Débit eau)" percentage={74} status="alert" type="water" />
+              <GlassAlertItem title="KY-038 (Bruit)" percentage={52} status="alert" type="sound" />
+              <GlassAlertItem title="MQ-135 (Qualité air)" percentage={89} status="normal" type="air" />
+              <GlassAlertItem title="DHT22 (Température)" percentage={36} status="warning" type="temperature" />
+              <GlassAlertItem title="DHT22 (Humidité)" percentage={65} status="normal" type="humidity" />
+              <GlassAlertItem title="MQ-9 (Gaz toxiques)" percentage={42} status="alert" type="co2" />
+              <GlassAlertItem title="801S (Vibration)" percentage={58} status="warning" type="vibration" />
+            </div>
+          </div>
 
-        {/* Ligne 1 : Activité mensuelle | Détail température */}
+          {/* État et fonctionnalités des capteurs - Hauteur fixe identique */}
+          <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Settings className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-lg font-semibold text-gray-900">État Capteurs</h3>
+              </div>
+              <span className="px-2 py-1 rounded-full bg-blue-500/10 text-blue-600 text-xs font-medium border border-blue-200">{activesSensors}/{totalSensors}</span>
+            </div>
+
+            <div className="bg-blue-50 p-2 rounded-lg border border-blue-200 mb-3">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-semibold text-blue-900">Connectés</span>
+                <span className="text-xs font-bold text-blue-700">{connectionPercentage}%</span>
+              </div>
+              <div className="w-full bg-blue-200 rounded-full h-1.5">
+                <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${connectionPercentage}%` }} />
+              </div>
+            </div>
+
+            <div className="flex-1 space-y-2 overflow-y-auto">
+              {[
+                { id: 1, name: "DHT22 #001", online: true, rssi: -45, battery: 85, calibrated: true },
+                { id: 2, name: "MQ-135 #002", online: true, rssi: -52, battery: 92, calibrated: true },
+                { id: 3, name: "MQ-9 #003", online: false, rssi: -78, battery: 15, calibrated: false },
+                { id: 4, name: "GY-BME280 #004", online: true, rssi: -48, battery: 78, calibrated: true },
+                { id: 5, name: "801S #005", online: true, rssi: -55, battery: 68, calibrated: true },
+                { id: 6, name: "KY-038 #006", online: true, rssi: -42, battery: 95, calibrated: true },
+                { id: 7, name: "YF-S401 #007", online: false, rssi: -85, battery: 22, calibrated: false },
+                { id: 8, name: "DS3231 #008", online: true, rssi: -38, battery: 100, calibrated: true }
+              ].slice(0, 7).map((sensor) => (
+                <div key={sensor.id} className="flex items-center justify-between p-2 bg-white/30 rounded-lg hover:bg-white/40 transition-all duration-200">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                      sensor.online ? 'bg-green-400' : sensor.battery < 20 ? 'bg-red-400' : !sensor.calibrated ? 'bg-orange-400' : 'bg-green-400'
+                    }`} />
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-gray-900 truncate">{sensor.name}</div>
+                      <div className="text-xs text-gray-600 flex items-center gap-2">
+                        <Wifi className="w-2 h-2" />
+                        <span>{sensor.rssi}dBm</span>
+                        <Battery className="w-2 h-2" />
+                        <span>{sensor.battery}%</span>
+                        <ShieldCheck className="w-2 h-2" />
+                        <span>{sensor.calibrated ? 'OK' : 'Cal.'}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-1 flex-shrink-0">
+                    <button className="p-1 bg-blue-100 hover:bg-blue-200 rounded text-blue-600 transition-colors" title="Redémarrer">
+                      <RotateCcw className="w-2 h-2" />
+                    </button>
+                    <button className="p-1 bg-gray-100 hover:bg-gray-200 rounded text-gray-600 transition-colors" title="Détails">
+                      <Eye className="w-2 h-2" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recommandations Démarche Verte - Hauteur fixe identique */}
+          <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <TreePine className="w-5 h-5 text-green-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Démarche Verte</h3>
+              </div>
+              <Chip>ÉCORESPONSABLE</Chip>
+            </div>
+
+            <div className="bg-green-50 p-2 rounded-lg border border-green-200 mb-3">
+              <div className="flex items-center gap-2 mb-1">
+                <Leaf className="w-3 h-3 text-green-600" />
+                <span className="text-xs font-semibold text-green-900">Impact Environnemental</span>
+              </div>
+              <div className="text-xs text-green-700">
+                Réduction CO₂ potentielle : <strong>-23% ce mois</strong>
+              </div>
+            </div>
+
+            <div className="flex-1 space-y-2 overflow-y-auto">
+              {[
+                { title: "Réduire pollution sonore", desc: "KY-038 détecte +15% bruit - Actions nécessaires", icon: <Wind className="w-3 h-3 text-blue-500" />, priority: "URGENT", color: "red", impact: "Élevé" },
+                { title: "Optimiser consommation eau", desc: "YF-S401 : débit excessif -15% possible", icon: <Droplets className="w-3 h-3 text-cyan-500" />, priority: "MOYEN", color: "blue", impact: "Moyen" },
+                { title: "Améliorer qualité air", desc: "MQ-135 : taux polluants élevés - ventilation", icon: <Leaf className="w-3 h-3 text-green-500" />, priority: "URGENT", color: "red", impact: "Élevé" },
+                { title: "Réduire émissions CO₂", desc: "Données capteurs suggèrent économie énergie", icon: <Recycle className="w-3 h-3 text-emerald-500" />, priority: "MOYEN", color: "green", impact: "Élevé" },
+                { title: "Zone de confort thermique", desc: "DHT22 : optimiser chauffage -8°C possible", icon: <SunIcon className="w-3 h-3 text-yellow-500" />, priority: "FAIBLE", color: "orange", impact: "Moyen" },
+                { title: "Certification environnementale", desc: "Données conformes ISO 14001 - validation", icon: <ShieldCheck className="w-3 h-3 text-indigo-500" />, priority: "FAIBLE", color: "blue", impact: "Faible" },
+                { title: "Surveillance vibrations", desc: "801S : réduire nuisances mécaniques", icon: <Gauge className="w-3 h-3 text-purple-500" />, priority: "FAIBLE", color: "gray", impact: "Faible" }
+              ].map((rec, i) => (
+                <div key={i} className="flex items-center justify-between p-2 bg-white/30 rounded-lg hover:bg-white/40 transition-all duration-200 cursor-pointer">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <div className="flex-shrink-0">{rec.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium text-gray-900 truncate">{rec.title}</div>
+                      <div className="text-xs text-gray-700 truncate">{rec.desc}</div>
+                      <div className="text-xs text-green-600 font-medium">Impact : {rec.impact}</div>
+                    </div>
+                  </div>
+                  <span className={`px-1.5 py-0.5 rounded text-xs font-medium flex-shrink-0 ml-2 ${
+                    rec.color === "red" ? "bg-red-100 text-red-700" :
+                    rec.color === "green" ? "bg-green-100 text-green-700" :
+                    rec.color === "blue" ? "bg-blue-100 text-blue-700" :
+                    rec.color === "orange" ? "bg-orange-100 text-orange-700" :
+                    "bg-gray-100 text-gray-700"
+                  }`}>
+                    {rec.priority}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <button 
+  onClick={navigateToBilling}
+  className="w-full mt-2 p-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-medium text-sm hover:from-green-600 hover:to-emerald-700 transition-all duration-200 flex items-center justify-center gap-2"
+>
+  <FileText className="w-4 h-4" />
+  Rapport de Facturation
+</button>
+          </div>
+        </div>
+
+        {/* LIGNE 3 : Activité mensuelle et détail température */}
         <div className="mt-4 grid gap-6 lg:grid-cols-2">
           {/* Activité Mensuelle */}
           <div className="rounded-xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl p-3">
@@ -433,7 +537,6 @@ export function GlassDashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">{getPeriodTitle()}</h3>
                 <p className="text-xs text-gray-600">Suivi {getMetricTitle().toLowerCase()}</p>
               </div>
-
 
               <div className="flex gap-2">
                 <select 
@@ -457,7 +560,6 @@ export function GlassDashboard() {
               </div>
             </div>
 
-
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40 hover:bg-white/40 transition-all duration-200">
                 <div className="flex items-center justify-between">
@@ -471,7 +573,6 @@ export function GlassDashboard() {
                 </div>
               </div>
 
-
               <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40 hover:bg-white/40 transition-all duration-200">
                 <div className="flex items-center justify-between">
                   <div>
@@ -483,7 +584,6 @@ export function GlassDashboard() {
                   </div>
                 </div>
               </div>
-
 
               <div className="bg-white/30 backdrop-blur-sm rounded-xl p-4 border border-white/40 hover:bg-white/40 transition-all duration-200">
                 <div className="flex items-center justify-between">
@@ -497,7 +597,6 @@ export function GlassDashboard() {
                 </div>
               </div>
             </div>
-
 
             {isLoading ? (
               <div className="h-32 flex items-center justify-center">
@@ -551,7 +650,6 @@ export function GlassDashboard() {
             )}
           </div>
 
-
           {/* Détail température */}
           <div className="flex flex-col">
             <Glass className="p-4">
@@ -560,7 +658,6 @@ export function GlassDashboard() {
                 title={`Détail — ${sensorMeta[selectedMetric as keyof typeof sensorMeta].label}`}
                 right={<Chip>{selectedPeriod.toUpperCase()}</Chip>}
               />
-
 
               <div className="grid md:grid-cols-5 gap-4">
                 <div className="md:col-span-3 h-56">
@@ -596,14 +693,12 @@ export function GlassDashboard() {
                     </div>
                   </Glass>
 
-
                   <Glass className="p-3">
                     <div className="text-xs text-gray-500">Dernière valeur</div>
                     <div className="text-xl font-semibold text-gray-900">
                       {latestVals[selectedMetric]} {sensorMeta[selectedMetric as keyof typeof sensorMeta].unit}
                     </div>
                   </Glass>
-
 
                   <Glass className="p-3">
                     <div className="text-xs text-gray-500 mb-1">Éditeur de seuil</div>
@@ -689,160 +784,7 @@ export function GlassDashboard() {
           </div>
         </div>
 
-
-       {/* Ligne 3 : Troisième ligne uniforme sans scroll - TAILLE IDENTIQUE */}
-<div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-
-  {/* Alertes - Hauteur fixe identique */}
-  <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
-    <div className="flex items-center justify-between mb-4">
-      <div className="flex items-center gap-2">
-        <Bell className="w-5 h-5 text-red-500 animate-pulse" />
-        <h3 className="text-lg font-semibold text-gray-900">Alertes</h3>
-      </div>
-      <span className="px-2 py-1 rounded-full bg-red-500/10 text-red-600 text-xs font-medium border border-red-200">7</span>
-    </div>
-    <div className="flex-1 space-y-2 overflow-y-auto">
-      <GlassAlertItem title="YF-S401 (Débit eau)" percentage={74} status="alert" type="water" />
-      <GlassAlertItem title="KY-038 (Bruit)" percentage={52} status="alert" type="sound" />
-      <GlassAlertItem title="MQ-135 (Qualité air)" percentage={89} status="normal" type="air" />
-      <GlassAlertItem title="DHT22 (Température)" percentage={36} status="warning" type="temperature" />
-      <GlassAlertItem title="DHT22 (Humidité)" percentage={65} status="normal" type="humidity" />
-      <GlassAlertItem title="MQ-9 (Gaz toxiques)" percentage={42} status="alert" type="co2" />
-      <GlassAlertItem title="801S (Vibration)" percentage={58} status="warning" type="vibration" />
-    </div>
-  </div>
-
-
-  {/* État et fonctionnalités des capteurs - Hauteur fixe identique */}
-  <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
-    <div className="flex items-center justify-between mb-4">
-      <div className="flex items-center gap-2">
-        <Settings className="w-5 h-5 text-indigo-600" />
-        <h3 className="text-lg font-semibold text-gray-900">État Capteurs</h3>
-      </div>
-      <span className="px-2 py-1 rounded-full bg-blue-500/10 text-blue-600 text-xs font-medium border border-blue-200">{activesSensors}/{totalSensors}</span>
-    </div>
-
-
-    <div className="bg-blue-50 p-2 rounded-lg border border-blue-200 mb-3">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-xs font-semibold text-blue-900">Connectés</span>
-        <span className="text-xs font-bold text-blue-700">{connectionPercentage}%</span>
-      </div>
-      <div className="w-full bg-blue-200 rounded-full h-1.5">
-        <div className="bg-blue-500 h-1.5 rounded-full transition-all duration-300" style={{ width: `${connectionPercentage}%` }} />
-      </div>
-    </div>
-
-
-    <div className="flex-1 space-y-2 overflow-y-auto">
-      {[
-        { id: 1, name: "DHT22 #001", online: true, rssi: -45, battery: 85, calibrated: true },
-        { id: 2, name: "MQ-135 #002", online: true, rssi: -52, battery: 92, calibrated: true },
-        { id: 3, name: "MQ-9 #003", online: false, rssi: -78, battery: 15, calibrated: false },
-        { id: 4, name: "GY-BME280 #004", online: true, rssi: -48, battery: 78, calibrated: true },
-        { id: 5, name: "801S #005", online: true, rssi: -55, battery: 68, calibrated: true },
-        { id: 6, name: "KY-038 #006", online: true, rssi: -42, battery: 95, calibrated: true },
-        { id: 7, name: "YF-S401 #007", online: false, rssi: -85, battery: 22, calibrated: false },
-        { id: 8, name: "DS3231 #008", online: true, rssi: -38, battery: 100, calibrated: true }
-      ].slice(0, 7).map((sensor) => (
-        <div key={sensor.id} className="flex items-center justify-between p-2 bg-white/30 rounded-lg hover:bg-white/40 transition-all duration-200">
-          <div className="flex items-center gap-2 flex-1 min-w-0">
-            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
-              sensor.online ? 'bg-green-400' : sensor.battery < 20 ? 'bg-red-400' : !sensor.calibrated ? 'bg-orange-400' : 'bg-green-400'
-            }`} />
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-gray-900 truncate">{sensor.name}</div>
-              <div className="text-xs text-gray-600 flex items-center gap-2">
-                <Wifi className="w-2 h-2" />
-                <span>{sensor.rssi}dBm</span>
-                <Battery className="w-2 h-2" />
-                <span>{sensor.battery}%</span>
-                <ShieldCheck className="w-2 h-2" />
-                <span>{sensor.calibrated ? 'OK' : 'Cal.'}</span>
-              </div>
-            </div>
-          </div>
-
-
-          <div className="flex gap-1 flex-shrink-0">
-            <button className="p-1 bg-blue-100 hover:bg-blue-200 rounded text-blue-600 transition-colors" title="Redémarrer">
-              <RotateCcw className="w-2 h-2" />
-            </button>
-            <button className="p-1 bg-gray-100 hover:bg-gray-200 rounded text-gray-600 transition-colors" title="Détails">
-              <Eye className="w-2 h-2" />
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-
-
-  {/* Recommandations IA - Hauteur fixe identique */}
-  <div className="h-96 rounded-2xl border border-white/30 bg-white/40 backdrop-blur-xl shadow-xl p-4 flex flex-col">
-    <div className="flex items-center justify-between mb-4">
-      <div className="flex items-center gap-2">
-        <Lightbulb className="w-5 h-5 text-yellow-500" />
-        <h3 className="text-lg font-semibold text-gray-900">Recommandations IA</h3>
-      </div>
-      <Chip>PRÉDICTIF</Chip>
-    </div>
-
-
-    <div className="bg-purple-50 p-2 rounded-lg border border-purple-200 mb-3">
-      <div className="flex items-center gap-2 mb-1">
-        <Brain className="w-3 h-3 text-purple-600" />
-        <span className="text-xs font-semibold text-purple-900">Prédiction</span>
-      </div>
-      <div className="text-xs text-purple-700">
-        Maintenance capteur MQ-135 #002 dans <strong>5j</strong> (94%)
-      </div>
-    </div>
-
-
-    <div className="flex-1 space-y-2 overflow-y-auto">
-      {[
-        { title: "Action urgente", desc: "Vérifier capteur DHT22 #001", icon: <AlertTriangle className="w-3 h-3 text-red-500" />, priority: "URGENT", color: "red" },
-        { title: "Optimisation énergétique", desc: "Réduire échantillonnage -15%", icon: <Zap className="w-3 h-3 text-green-500" />, priority: "MOYEN", color: "green" },
-        { title: "Maintenance préventive", desc: "Calibrer capteur GY-BME280 #004", icon: <Wrench className="w-3 h-3 text-blue-500" />, priority: "FAIBLE", color: "blue" },
-        { title: "Batterie faible", desc: "Remplacer capteur 801S #005", icon: <Battery className="w-3 h-3 text-orange-500" />, priority: "MOYEN", color: "orange" },
-        { title: "Connectivité", desc: "Signal faible YF-S401 #007", icon: <Wifi className="w-3 h-3 text-gray-500" />, priority: "FAIBLE", color: "gray" },
-        { title: "Calibration requise", desc: "Capteur MQ-9 #003 nécessite calibrage", icon: <Wrench className="w-3 h-3 text-orange-500" />, priority: "MOYEN", color: "orange" },
-        { title: "Nettoyage recommandé", desc: "Capteur KY-038 #006 à nettoyer", icon: <Leaf className="w-3 h-3 text-emerald-500" />, priority: "FAIBLE", color: "green" }
-      ].map((rec, i) => (
-        <div key={i} className="flex items-center justify-between p-2 bg-white/30 rounded-lg hover:bg-white/40 transition-all duration-200 cursor-pointer">
-          <div className="flex items-center gap-2 flex-1 min-w-0">
-            <div className="flex-shrink-0">{rec.icon}</div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-medium text-gray-900 truncate">{rec.title}</div>
-              <div className="text-xs text-gray-700 truncate">{rec.desc}</div>
-            </div>
-          </div>
-          <span className={`px-1.5 py-0.5 rounded text-xs font-medium flex-shrink-0 ml-2 ${
-            rec.color === "red" ? "bg-red-100 text-red-700" :
-            rec.color === "green" ? "bg-green-100 text-green-700" :
-            rec.color === "blue" ? "bg-blue-100 text-blue-700" :
-            rec.color === "orange" ? "bg-orange-100 text-orange-700" :
-            "bg-gray-100 text-gray-700"
-          }`}>
-            {rec.priority}
-          </span>
-        </div>
-      ))}
-    </div>
-    <button className="w-full mt-2 p-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl font-medium text-sm hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 flex items-center justify-center gap-2">
-      <Brain className="w-4 h-4" />
-      Analyser par l' IA
-    </button>
-  </div>
-</div>
-
-
-
-          {/* Ligne 4 : Capteurs du projet — Comparatif (plein largeur) */}
+        {/* LIGNE 4 : Capteurs du projet — Comparatif (plein largeur) */}
         <div className="mt-6">
           <Glass className="p-4">
             <SectionTitle icon={<Leaf className="w-5 h-5 text-emerald-600" />} title="Capteurs du Projet — Comparatif" />
@@ -877,7 +819,90 @@ export function GlassDashboard() {
             </div>
           </Glass>
         </div>
-<ChatAssistant />
+
+        {/* Bouton flottant pour ouvrir/fermer l'assistant chat */}
+        <button
+          onClick={() => setChatOpen(!chatOpen)}
+          aria-label="Ouvrir l'assistant chat"
+          className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg text-white hover:brightness-110 transition"
+        >
+          {chatOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        </button>
+
+        {/* Fenêtre assistant chat */}
+        {chatOpen && (
+          <div className="fixed bottom-20 right-6 z-40 w-80 h-96 rounded-2xl border border-indigo-300 bg-gradient-to-br from-indigo-50 via-purple-50 to-white/80 backdrop-blur-xl shadow-2xl flex flex-col animate-fadeIn">
+            <div className="flex items-center justify-between p-4 border-b border-indigo-200 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-t-2xl">
+              <h4 className="text-indigo-700 font-bold text-base tracking-wide flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-indigo-500" /> Assistant Chat
+              </h4>
+              <button
+                onClick={() => setChatOpen(false)}
+                aria-label="Fermer le chat"
+                className="text-indigo-500 hover:text-indigo-700 transition"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="flex-1 p-4 overflow-y-auto text-gray-800 space-y-2 custom-scrollbar">
+              <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                Bonjour 👋 ! Je suis votre assistant. Comment puis-je aider ?
+              </div>
+              <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
+                Je veux voir les alertes récentes.
+              </div>
+              <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                Voici les 7 alertes les plus récentes affichées dans le dashboard.
+              </div>
+              <div className="bg-indigo-100 text-indigo-900 rounded-lg p-3 text-sm shadow w-fit ml-auto animate-fadeIn">
+                Merci ! Et comment exporter les données ?
+              </div>
+              <div className="bg-white/80 backdrop-blur-md rounded-lg p-3 text-sm shadow w-fit animate-fadeIn">
+                Cliquez sur le bouton "Rapport de Facturation" pour accéder aux exports.
+              </div>
+            </div>
+            <div className="p-4 border-t border-indigo-200 bg-white/60 rounded-b-2xl flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Tapez votre message..."
+                className="flex-1 rounded-lg border border-indigo-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 bg-white/90 shadow"
+              />
+              <button
+                aria-label="Envoyer"
+                className="p-2 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md hover:scale-105 transition"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 20l16-8-16-8v6l12 2-12 2v6z" />
+                </svg>
+              </button>
+            </div>
+            <style>{`
+              .animate-fadeIn {
+                animation: fadeIn 0.3s ease-out;
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+              }
+              .custom-scrollbar::-webkit-scrollbar-thumb {
+                background: rgba(99, 102, 241, 0.5);
+                border-radius: 10px;
+              }
+            `}</style>
+          </div>
+        )}
+
+        <ChatAssistant />
       </div>
     </div>
   );
