@@ -18,7 +18,6 @@ import {
   BarChart,
   Battery,
   Bell,
-  Calendar,
   Gauge,
   Leaf,
   Minus,
@@ -32,12 +31,16 @@ import {
   SunIcon,
   RotateCcw,
   Eye,
-
   TreePine,
   Recycle,
   Wind,
   Droplets,
-  FileText
+  FileText,
+  Thermometer,
+  Cloud,
+  AlertTriangle,
+  Volume2,
+  Scale
 } from "lucide-react";
 import {
   AreaChart,
@@ -134,6 +137,12 @@ export function GlassDashboard() {
     { value: 380 }
   ];
 
+  // Nouveau capteur : Cellule de pesage (Balance ordures) en Kg
+  const balanceData = [
+    { value: 120 }, { value: 125 }, { value: 118 }, { value: 130 }, { value: 127 },
+    { value: 132 }, { value: 129 }, { value: 135 }, { value: 131 }
+  ];
+  
   // Aliases pour jeux de données manquants (utilisation des jeux existants pour compilation)
   const mq9Data = mq135Data;        // MQ-9 reuse MQ-135 sample data
   const gyBme280Data = dht22Data;  // GY-BME280 reuse DHT22 sample data
@@ -299,88 +308,100 @@ export function GlassDashboard() {
         <DashboardHeader />
 
         {/* LIGNE 1 : Les 7 capteurs */}
-        <div className="grid grid-cols-2 lg:grid-cols-7 gap-3">
-          <GlassMetricCard
-            title="DHT22 (Temp & Hum)"
-            value="21°C"
-            trend="neutral"
-            data={dht22Data}
-            color="#3b82f6"
-            gradient="from-blue-500 to-cyan-500"
-            icon={<BarChart className="w-3 h-3 text-white" />}
-            small
-          />
+        <div className="grid grid-cols-2 lg:grid-cols-8 gap-3">
+         <GlassMetricCard
+  title="DHT22 (température & humidité)"
+  value="21 °C"
+  trend="neutral"
+  data={dht22Data}
+  color="#3b82f6"
+  gradient="from-blue-500 to-cyan-500"
+  icon={<Thermometer className="w-3 h-3 text-white" />}  // Température
+  small
+/>
 
-          <GlassMetricCard
-            title="MQ-135 (Gaz polluants)"
-            value="450 ppm"
-            trend="up"
-            trendValue="+43%"
-            data={mq135Data}
-            color="#10b981"
-            gradient="from-emerald-500 to-green-500"
-            icon={<Calendar className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="MQ-135 (Gaz polluants)"
+  value="450 ppm"
+  trend="up"
+  trendValue="+43%"
+  data={mq135Data}
+  color="#10b981"
+  gradient="from-emerald-500 to-green-500"
+  icon={<Cloud className="w-3 h-3 text-white" />}  // Qualité de l'air / gaz
+  small
+/>
 
-          <GlassMetricCard
-            title="801S (Vibration)"
-            value="56 Hz"
-            trend="down"
-            trendValue="-12%"
-            data={s801VibrationData}
-            color="#f59e0b"
-            gradient="from-orange-500 to-yellow-500"
-            icon={<Bell className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="801S (Niveau de Vibration)"
+  value="56 Hz"
+  trend="down"
+  trendValue="-12%"
+  data={s801VibrationData}
+  color="#f59e0b"
+  gradient="from-orange-500 to-yellow-500"
+  icon={<Activity className="w-3 h-3 text-white" />} // Vibration (Activity)
+  small
+/>
 
-          <GlassMetricCard
-            title="YF-S401 (Débit eau)"
-            value="123 L/min"
-            trend="up"
-            trendValue="+7%"
-            data={yfS401Data}
-            color="#8b5cf6"
-            gradient="from-purple-500 to-indigo-500"
-            icon={<BarChart className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="YF-S401(Débit & Consommation d'eau)"
+  value="123 L/min"
+  trend="up"
+  trendValue="+7%"
+  data={yfS401Data}
+  color="#8b5cf6"
+  gradient="from-purple-500 to-indigo-500"
+  icon={<Droplets className="w-3 h-3 text-white" />} // Débit eau (Droplets)
+  small
+/>
 
-          <GlassMetricCard
-            title="GY-BME280 (Pression)"
-            value="1012 hPa"
-            trend="down"
-            trendValue="-5%"
-            data={dht22Data}
-            color="#06b6d4"
-            gradient="from-cyan-500 to-blue-500"
-            icon={<Activity className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="GY-BME280 (Pression Atmosphérique)"
+  value="1012 hPa"
+  trend="down"
+  trendValue="-5%"
+  data={dht22Data}
+  color="#06b6d4"
+  gradient="from-cyan-500 to-blue-500"
+  icon={<Gauge className="w-3 h-3 text-white" />} // Pression
+  small
+/>
 
-          <GlassMetricCard
-            title="MQ-9 (Gaz toxiques)"
-            value="65 ppm"
-            trend="neutral"
-            data={mq135Data}
-            color="#f43f5e"
-            gradient="from-pink-500 to-rose-500"
-            icon={<Calendar className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="MQ-9 (Gaz toxiques)"
+  value="65 ppm"
+  trend="neutral"
+  data={mq135Data}
+  color="#f43f5e"
+  gradient="from-pink-500 to-rose-500"
+  icon={<AlertTriangle className="w-3 h-3 text-white" />}  // Gaz toxiques (Alert)
+  small
+/>
 
-          <GlassMetricCard
-            title="KY-038 (Bruit)"
-            value="35 dB"
-            trend="up"
-            trendValue="+15%"
-            data={ky038Data}
-            color="#fde047"
-            gradient="from-yellow-400 to-amber-400"
-            icon={<SunIcon className="w-3 h-3 text-white" />}
-            small
-          />
+<GlassMetricCard
+  title="KY-038 (niveau de Bruit)"
+  value="35 dB"
+  trend="up"
+  trendValue="+15%"
+  data={ky038Data}
+  color="#fde047"
+  gradient="from-yellow-400 to-amber-400"
+  icon={<Volume2 className="w-3 h-3 text-white" />}  // Bruit (Volume2)
+  small
+/>
+
+<GlassMetricCard
+  title="Cellule de pesage (Balance ordures) Kg"
+  value="131 Kg"
+  trend="neutral"
+  data={balanceData}
+  color="#34d399"
+  gradient="from-emerald-400 to-green-500"
+  icon={<Scale className="w-3 h-3 text-white" />}  // Pesage / Scale
+  small
+/>
+
         </div>
 
         {/* LIGNE 2 : Alertes, état des capteurs et recommandations */}
@@ -523,7 +544,7 @@ export function GlassDashboard() {
   className="w-full mt-2 p-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-medium text-sm hover:from-green-600 hover:to-emerald-700 transition-all duration-200 flex items-center justify-center gap-2"
 >
   <FileText className="w-4 h-4" />
-  Rapport de Facturation
+  Rapport PDF
 </button>
           </div>
         </div>
