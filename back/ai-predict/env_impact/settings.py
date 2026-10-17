@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 import django_mongodb_backend
@@ -22,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)q6mj*$xw%(n3%a7v&c2nr9vf(f80#z*mq5ry1l@rik$&h$ao6'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [h for h in os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if h]
 
 
 # Application definition
@@ -78,7 +79,13 @@ WSGI_APPLICATION = 'env_impact.wsgi.application'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': ['env_data.permissions.HasAPIKey'],
+    'UNAUTHENTICATED_USER': None,
 }
+
+# Shared key that sensors and internal services send in the X-API-Key header
+ENV_DATA_API_KEY = os.environ.get('ENV_DATA_API_KEY', '')
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'AI Service API',
@@ -93,7 +100,7 @@ SPECTACULAR_SETTINGS = {
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    "default": django_mongodb_backend.parse_uri("mongodb://localhost:27017/maitso"),
+    "default": django_mongodb_backend.parse_uri(os.environ.get("MONGO_URI", "mongodb://localhost:27017/maitso")),
 }
 
 # Password validation

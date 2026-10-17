@@ -1,8 +1,21 @@
 import { Request, Response } from "express";    
+import mongoose from "mongoose";
 
-import { checkUsernameExists, checkEmailExists, registerUser, updateUserInformation, removeUser } from "../services/UserService";
+import { checkUsernameExists, checkEmailExists, registerUser, updateUserInformation, removeUser, isAdmin } from "../services/UserService";
+
+import { verifyToken } from "../services/TokenService";
 
 import { UserInformation } from "../models/Information";
+
+// Returns the userID of the caller if a valid access token is provided, otherwise null
+const getRequesterID = async (req: Request): Promise<string | null> => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return null;
+  }
+  const userID = await verifyToken(token, "access");
+  return typeof userID === "string" ? userID : null;
+};
 
 export const createNewUser = async (req: Request, res: Response) => { 
 // #region Swagger Description
@@ -40,8 +53,13 @@ export const createNewUser = async (req: Request, res: Response) => {
       return res.status(409).json({ success: false, message: "Email address already exists" });
     }
 
+    //Only an authenticated admin may choose the role of the new user
+    const requesterID = await getRequesterID(req);
+    const requesterIsAdmin = requesterID ? await isAdmin(requesterID) : false;
+    const user_type = requesterIsAdmin && req.body.user_type ? req.body.user_type : "user";
+
     //Save new user
-    const result = await registerUser(req.body);
+    const result = await registerUser({ ...req.body, user_type });
     return res.status(201).json({
       success: true,
       message: "User created successfully",
@@ -63,10 +81,8 @@ export const updateUser = async (req: Request, res: Response) => {
      description: 'User info',
      required: true,
      schema: {
-      "userID": "",
       "first_name": "test",
       "last_name": "TEST",
-      "user_type": "admin",
       "email_address": "test.test@gmail.com",
       "username": "testtest",
       "phone_number": "1234567890"
@@ -75,30 +91,34 @@ export const updateUser = async (req: Request, res: Response) => {
   */
  // #endregion Swagger Description
  try {
-    const { userID, username, email_address } = req.body;
+    //A user can only update their own profile (the ID comes from the access token)
+    const userID: string = (req as any).userID;
+    const { username, email_address } = req.body;
 
     // Vérifier si le username existe pour un autre utilisateur
-    const usernameExists = await UserInformation.findOne({
+    const usernameExists = username !== undefined && await UserInformation.findOne({
       username: username,
-      _id: { $ne: userID } // exclut l'utilisateur en cours
+      _id: mongoose.trusted({ $ne: userID }) // exclut l'utilisateur en cours
     });
     if (usernameExists) {
       return res.status(409).json({ success: false, message: "Username already exists" });
     }
 
     // Vérifier si l'email existe pour un autre utilisateur
-    const emailExists = await UserInformation.findOne({
+    const emailExists = email_address !== undefined && await UserInformation.findOne({
       email_address: email_address,
-      _id: { $ne: userID } // exclut l'utilisateur en cours
+      _id: mongoose.trusted({ $ne: userID }) // exclut l'utilisateur en cours
     });
     if (emailExists) {
       return res.status(409).json({ success: false, message: "Email address already exists" });
     }
 
     //Update the user's information
-    const result = await updateUserInformation(req.body);
-    console.log(result);
-    return res.status(201).json({
+    const result = await updateUserInformation(userID, req.body);
+    if (!result) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    return res.status(200).json({
       success: true,
       message: "User updated successfully"
     });
@@ -124,6 +144,12 @@ export const deleteUser = async (req: Request, res: Response) => {
   const { userID } = req.params;
   if (!userID) {
     return res.status(400).json({ success: false, message: "userID is required" });
+  }
+
+  //A user can only delete their own account, unless they are an admin
+  const requesterID: string = (req as any).userID;
+  if (requesterID !== userID && !(await isAdmin(requesterID))) {
+    return res.status(403).json({ success: false, message: "Forbidden" });
   }
 
   try {

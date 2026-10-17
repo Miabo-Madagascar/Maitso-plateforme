@@ -10,7 +10,7 @@ export const insertUser = async (data: any, session: mongoose.ClientSession)=> {
   const userInformation = new UserInformation({
     first_name: data.first_name,
     last_name: data.last_name,
-    user_type: data.user_type,
+    user_type: data.user_type || "user",
     email_address: data.email_address,
     username: data.username,
     phone_number: data.phone_number
@@ -23,20 +23,36 @@ export const insertUser = async (data: any, session: mongoose.ClientSession)=> {
   return savedUserInformation;
 };
 
-export const updateUserInformation = async (data: any) => {
+// Fields a user may change on their own profile (user_type is excluded on purpose)
+const UPDATABLE_FIELDS = ["first_name", "last_name", "email_address", "username", "phone_number"];
+
+export const updateUserInformation = async (userID: string, data: any) => {
   try {
-    const { userID, ...updateFields } = data;
+    const updateFields: Record<string, unknown> = {};
+    for (const field of UPDATABLE_FIELDS) {
+      if (data[field] !== undefined) {
+        updateFields[field] = data[field];
+      }
+    }
 
     const result = await UserInformation.findOneAndUpdate(
       { _id: userID },
       { $set: updateFields },
-      { new: true }
+      { new: true, runValidators: true }
     );
     return result;
   }
   catch (error: any) {
     throw new Error(error.message || "Failed to update user information");
   }
+};
+
+export const isAdmin = async (userID: string): Promise<boolean> => {
+  if (!mongoose.isValidObjectId(userID)) {
+    return false;
+  }
+  const user = await UserInformation.findById(userID, { user_type: 1 });
+  return user?.user_type === "admin";
 };
 
 export const checkUsernameExists = async (username: string): Promise<boolean> => {
