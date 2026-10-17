@@ -8,6 +8,9 @@ const uri = process.env.MONGO_URI;
 if (!uri) {
   throw new Error("❌ MONGO_URI is not defined in .env");
 }
+// Reject query operators ($ne, $gt...) coming from user input
+mongoose.set("sanitizeFilter", true);
+
 export const connectDB = async () => {
   try {
     await mongoose.connect(uri);
